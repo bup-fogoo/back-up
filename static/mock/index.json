@@ -1,0 +1,98 @@
+{
+    "ret": true,
+    "data": {
+        "popRecommend": "热门推荐" ,
+        "classicReview": "大家常看" ,
+        "swiperList": [{
+            "id": "1",
+            "imgTitle": "hell",
+            "imgUrl": "https://www.awas.ink/image/1926769.jpg",
+            "imgHref": "1"
+        },{
+            "id": "2",
+            "imgTitle": "hell",
+            "imgUrl": "https://www.awas.ink/image/2584269.jpg",
+            "imgHref": "2"
+        },{
+            "id": "3",
+            "imgTitle": "hell",
+            "imgUrl": "https://www.awas.ink/image/2836486.jpg",
+            "imgHref": "3"
+        },{
+            "id": "4",
+            "imgTitle": "hell",
+            "imgUrl": "https://www.awas.ink/image/5601950.jpg",
+            "imgHref": "4"
+        }],
+        "contentList": [{
+            "id": "00000801",
+            "hot": "热门",
+            "name": "awas",
+            "fans": "165465",
+            "imgUrl": "https://www.awas.ink/image/856823657.jpg",
+            "videoUrl":"https://video.pearvideo.com/mp4/adshort/20210726/cont-1736469-15729657_adpkg-ad_hd.mp4",
+            "follow":"0",
+            "title": "人生没有如果,只有后果和结果。",
+            "desc": "生活处处充满惊喜~不要轻易放弃哦~",
+            "laber": ["我命油我不油天","你都不知道心疼人的","宝，我去输液，什么液，想你的夜","哪儿油了就是喜欢才跟你这样","孽缘，咱俩真的是孽缘"],
+            "headUrl": "https://www.awas.ink/image/heaer5675678.png",
+            "like": "2156789",
+            "dislike": "21",
+            "comment": "2314",
+            "see": "6476565434",
+            "danmu": "7854",
+            "share": "89",
+            "time": "2021-07-20"
+        }],
+        "recommendMiniList": [{
+            "id": "0001",
+            "imgUrl": "https://www.awas.ink/image/item-title-01-70x70.png",
+            "title": "人生命运不是机遇,而是选择。命运不靠等待,而凭争取。",
+            "desc": "我说话有点雷，玩起来有点疯，所以你们就叫我'雷锋'吧。只要锄头舞的好，那有墙角挖不倒？只要锄头舞的好，那有墙角挖不倒？",
+            "timeAgo": "1小时之前",
+            "seeNum": "43243"
+        },{
+            "id": "0002",
+            "imgUrl": "https://www.awas.ink/image/recommend-640x214.png",
+            "title": "你让我滚，我滚了。",
+            "desc": "脱了衣服你是禽兽，穿上衣服，穿上衣服你是衣冠禽兽！",
+            "timeAgo": "10分钟之前",
+            "seeNum": "54188"
+        },{
+            "id": "0003",
+            "imgUrl": "https://www.awas.ink/image/summerfield-336672_1920.jpg",
+            "title": "劝您别去整容早日投胎比较靠谱！",
+            "desc": "明星脱一点就能更出名，我脱的光光的却被抓起来了！",
+            "timeAgo": "5秒钟之前",
+            "seeNum": "9733"
+        },{
+            "id": "0004",
+            "imgUrl": "https://www.awas.ink/image/000020324.png",
+            "title": "小鸟虽小，可它玩的确是整个天空。",
+            "desc": "唐僧再厉害，再厉害，再厉害，再厉害，也不过是一个耍猴的。",
+            "timeAgo": "1月之前",
+            "seeNum": "4324"
+        }],
+        "recommendList": [{
+            "id": "0001",
+            "imgUrl": "https://www.awas.ink/image/sea-164989_1280.jpg",
+            "title": "只要锄头舞的好，那有墙角挖不倒？",
+            "desc": "以后谁再说爱你，上去啪就一嘴巴子，他要没还手他就是真爱你。"
+        },{
+            "id": "0002",
+            "imgUrl": "https://www.awas.ink/image/002-sky-640x214.png",
+            "title": "如果地震了，我会和你一起死，你是被砸死的，我是看见你死了笑死的。",
+            "desc": "我当年也是个痴情的种子，结果下了场雨……淹死了。"
+        },{
+            "id": "0003",
+            "imgUrl": "https://www.awas.ink/image/003-people-640x214.png",
+            "title": "你肺活量有多大啊，能把牛B吹的这么大!",
+            "desc": "在最好的年纪遇见你，算我倒霉！"
+        },{
+            "id": "0004",
+            "imgUrl": "https://www.awas.ink/image/004-sparkler-640x210.png",
+            "title": "每个抖腿的人，心里都有一台缝纫机。",
+            "desc": "你玉树临风，英俊潇洒，风流倜傥，人见人爱，花见花开，想必一定是人渣中的极品，禽兽中的禽兽。"
+        }]
+    }
+}
