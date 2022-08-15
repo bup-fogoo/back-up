@@ -1,4 +1,4 @@
-# awas
+# bup.pub
 
 > A Vue.js project
 

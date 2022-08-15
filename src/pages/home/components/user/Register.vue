@@ -5,8 +5,11 @@
       <label for=""> name:</label><input v-model="user.name" type="text" placeholder="请输入昵称(选填)">
       <br>
       <label for=""> email:</label><input v-model="user.email" type="text" placeholder="选请输入邮箱地址">
+      <button @click="SendVerificationCode" type="submit">发送验证码</button>
       <br>
       <label for=""> password:</label><input v-model="user.password" type="password" placeholder="请输入不低于6位密码">
+      <br>
+      <label for=""> code:</label><input v-model="user.code" type="text" placeholder="请输入邮箱验证码">
       <br>
       <button @click="register" type="submit">提交</button>
   </div>
@@ -26,7 +29,8 @@ export default {
       user: {
         name: '',
         email: '',
-        password: ''
+        password: '',
+        code: ''
       }
     }
   },
@@ -47,9 +51,18 @@ export default {
         })
       }).catch(err => {
         // 错误提示
-        console.log('err:', err.response.data.msg)
+        console.log('err:', err.response.data)
       })
       // console.log('register')
+    },
+    SendVerificationCode () {
+      const api = '/api/v1/auth/reg/code'
+      axios.post(api, {...this.user}, {headers: {Authorization: `Bearer ${storageService.get(storageService.USER_TOKEN)}`}}).then(res => {
+        console.log(res.data)
+        alert('发送成功')
+      }).catch(err => {
+        console.log('err:', err.response.data)
+      })
     }
   }
 }

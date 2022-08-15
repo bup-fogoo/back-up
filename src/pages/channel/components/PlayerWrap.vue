@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="r-slide-menu" v-for="item of contentList" :key="item.id">
+    <div class="r-slide-menu">
       <div class="block-video">
-        <channel-player-video :src="'https://aeav.cn/videos/' + item.videoUrl + '.mp4'" :poster = "item.imgUrl"></channel-player-video>
+        <channel-player-video :src="'https://aeav.cn/videos/' + $data.contentList['videoUrl'] + '.mp4'" :poster = "$data.contentList['imgUrl']"></channel-player-video>
         <div>
           <!-- <img :src="item.imgUrl" alt=""> -->
         </div>
@@ -11,28 +11,28 @@
         <div class="block-info-title">
           <div>
             <span class="iconfont"></span>
-            <h1>{{ item.hot }}</h1>
+            <h1>{{ $data.contentList["hot"] }}</h1>
           </div>
-          <h2>{{ item.title }}</h2>
+          <h2>{{ $data.contentList["title"] }}</h2>
         </div>
         <div class="container">
           <div class="up-info">
             <div class="face-img">
               <router-link
-              role="link"
-              :to="'/' + item.uid"
+                role="link"
+                :to="'/' + $data.contentList['uid']"
               >
-                <img :src="item.headUrl" alt="" />
+                <img :src="$data.contentList['headUrl']" alt="" />
               </router-link>
             </div>
             <div class="face-up">
               <router-link
-              role="link"
-              :to="'/' + item.uid"
+                role="link"
+                :to="'/' + $data.contentList['uid']"
               >
-                <span>{{ item.name }}</span>
+                <span>{{ $data.contentList['name'] }}</span>
               </router-link>
-              <p>{{ item.fans }}粉丝</p>
+              <p>{{ $data.contentList['fans'] }}粉丝</p>
             </div>
             <div class="follow-add" @click="handleFollowClick">
               <i class="iconfont"></i>
@@ -41,38 +41,40 @@
           </div>
         </div>
         <div class="data">
-          <span class="view">{{ item.see }}次观看</span>
-          <span class="danmu">{{ item.danmu }}弹幕</span>
-          <span class="time">{{ item.time }}</span>
-          <span class="avid">{{ item.videoUrl }}</span>
+          <span class="view">{{ $data.contentList["see"] }}次观看</span>
+          <span class="danmu">{{ $data.contentList["danmu"] }}弹幕</span>
+          <span class="time">{{ $data.contentList["time"] }}</span>
+          <span class="avid">{{ $data.contentList["vid"] }}</span>
         </div>
         <div class="desc">
-          <p>{{ item.desc }}</p>
+          <p>{{ $data.contentList['desc'] }}</p>
         </div>
       </div>
       <div class="toolbar">
         <div style="margin: 2vw 3.3vw">
-          <span class="toolbar-icon-like iconfont" @click="handleLikeClick">
+<!--          <span class="toolbar-icon-like iconfont" @click="handleLikeClick">-->
+          <span :class="active===index ? 'toolbar-icon-like-true iconfont':'toolbar-icon-like iconfont'" @click="handleLikeClick">
             <i></i>
-            <span>{{ item.like }}</span>
+<!--            <span>{{ $data.like['like'] }}</span>-->
+            <span>{{ $data.cont }}</span>
           </span>
           <span
             class="toolbar-icon-dislike iconfont"
             @click="handleDislikeClick"
           >
             <i></i>
-            <span>{{ item.dislike }}</span>
+            <span>{{ $data.contentList['dislike'] }}</span>
           </span>
           <span
             class="toolbar-icon-collection iconfont"
             @click="handleCommentClick"
           >
             <i></i>
-            <span>{{ item.comment }}</span>
+            <span>{{ $data.contentList['comment'] }}</span>
           </span>
           <span class="toolbar-icon-share iconfont" @click="handleShareClick">
             <i></i>
-            <span>{{ item.share }}</span>
+            <span>{{ $data.contentList['share'] }}</span>
           </span>
         </div>
         <div class="share">
@@ -129,23 +131,23 @@
         <div class="padding-list">
           <ul class="list">
             <li class="aeav"
-            v-for="up of upRecommend"
-            :key="up.videpUrl"
+                v-for="up of upRecommend"
+                :key="up.videpUrl"
             >
               <router-link
-              role="link"
-              :to="up.videoUrl"
-              @click.native="refresh"
+                role="link"
+                :to="up.videoUrl"
+                @click.native="refresh"
               >
-              <div class="bfs-img">
-                <img :src="up.imgUrl"/>
-              </div>
-              <div class="gradient" :to="up.videoUrl"></div>
-              <div class="current">
+                <div class="bfs-img">
+                  <img :src="up.imgUrl"/>
+                </div>
+                <div class="gradient" :to="up.videoUrl"></div>
+                <div class="current">
                 <span>
                   {{ up.title }}
                 </span>
-              </div>
+                </div>
               </router-link>
             </li>
           </ul>
@@ -154,7 +156,7 @@
       <div class="swich">
         <div class="swich-title">
           <span>相关推荐</span>
-          <span>评论{{ item.comment }}</span>
+          <span>评论{{ $data.contentList['comment'] }}</span>
         </div>
         <div class="swich-list-box">
           <div class="swich-list">
@@ -206,7 +208,7 @@
 <script>
 import channelPlayerVideo from '@/pages/channel/components/PlayerVideo'
 import axios from 'axios'
-
+import storageService from '../../home/service/storageService'
 export default {
   name: 'ChannelPlayerWrap',
   components: {
@@ -221,7 +223,11 @@ export default {
       showShare: false,
       showLG: true,
       contentList: [],
-      upRecommend: []
+      upRecommend: [],
+      like: false,
+      index: 0,
+      active: -1,
+      cont: 0
     }
   },
   methods: {
@@ -229,7 +235,7 @@ export default {
       alert('follow')
     },
     handleLikeClick: function () {
-      alert('like')
+      axios.post(`/api/v1/auth/channel/like`, {vid: this.contentList['vid']}, {headers: {Authorization: `Bearer ${storageService.get(storageService.USER_TOKEN)}`}}).then(this.getChannelLikeSucc)
     },
     handleDislikeClick: function () {
       alert('dislike')
@@ -258,6 +264,22 @@ export default {
         const data = res.data
         this.contentList = data.contentList
         this.upRecommend = data.upRecommend
+        axios.post(`/api/v1/auth/channel/status`, {vid: this.contentList['vid']}, {headers: {Authorization: `Bearer ${storageService.get(storageService.USER_TOKEN)}`}}).then(this.getChannelLikeSucc)
+      }
+    },
+    getChannelLikeSucc (res) {
+      res = res.data
+      if (res.data && res.ret) {
+        const data = res.data
+        this.like = data['like']
+        this.cont = data['cont']
+        if (this.like) {
+          this.active = this.index
+          console.log('点赞成功')
+        } else {
+          this.active--
+          console.log('取消点赞成功')
+        }
       }
     },
     refresh () {
@@ -464,6 +486,7 @@ export default {
   float: right;
 }
 .toolbar-icon-like i,
+.toolbar-icon-like-true i,
 .toolbar-icon-dislike i,
 .toolbar-icon-collection i,
 .toolbar-icon-share i {
@@ -476,6 +499,9 @@ export default {
 }
 .toolbar-icon-like i::before {
   content: "\e6d6";
+}
+.toolbar-icon-like-true i::before {
+  content: "\e708";
 }
 .toolbar-icon-dislike i::before {
   content: "\e684";

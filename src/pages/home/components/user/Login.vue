@@ -46,7 +46,7 @@ export default {
         })
       }).catch(err => {
         // 错误提示
-        console.log('err:', err.response.data.msg)
+        console.log('err:', err.response.data)
       })
     }
   }
