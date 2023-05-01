@@ -1,0 +1,27 @@
+{
+  "name": "airjump",
+  "version": "1.0.0",
+  "description": "airjump.one",
+  "main": "index.js",
+  "scripts": {
+    "serve": "vue-cli-service serve --host 0.0.0.0 --inline --progress --config vue.config.js",
+    "build": "vue-cli-service build"
+  },
+  "author": "bup",
+  "license": "ISC",
+  "devDependencies": {
+    "@vue/cli-service": "^5.0.8",
+    "axios": "^0.21.1",
+    "fastclick": "^1.0.6",
+    "vue": "^2.7.14",
+    "vue-router": "^3.0.1"
+  },
+  "dependencies": {
+    "follow-redirects": "^1.15.2",
+    "mui": "^0.0.1",
+    "mui-player": "^1.8.1",
+    "mui-player-desktop-plugin": "^1.6.0",
+    "xgplayer": "^3.0.1",
+    "xgplayer-mp4": "^3.0.1"
+  }
+}
