@@ -10,10 +10,11 @@
       </router-link>
       <div class="details">
         <div class="media-channel">
-          <div><a :href="'/@'+shot.id"></a>
+          <div><a :href="'/profile?uid='+shot.user_id">
             <div class="channel-thumbnail-icon" aria-hidden="false" aria-label="转到频道"><img alt=""
                                                                                            :src="shot.avatar_url">
             </div>
+          </a>
           </div>
           <a class="media-item-extra-endpoint" aria-hidden="true" :href="'/video/'+shot.id"></a></div>
         <div class="media-item-info cbox">
@@ -82,7 +83,7 @@ export default {
     },
     handleImageError(event) {
       // 处理加载失败的情况
-      event.target.src = 'https://img.lovepik.com/element/40021/7866.png_860.png'
+      event.target.src = 'https://bup.pub/error_404.jpg'
     }
   },
   filters: {

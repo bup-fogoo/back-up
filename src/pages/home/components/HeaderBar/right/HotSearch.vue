@@ -4,7 +4,7 @@
     <ul class="hot-search-list">
       <li class="hot-search-item" v-for="(item, index) in list" :key="index">
         <span class="hot-search-rank">{{ index + 1 }}</span>
-        <a :href="item.link" class="hot-search-link">{{ item.name }}</a>
+        <a :href="item.link" target="_blank" class="hot-search-link">{{ item.name }}</a>
         <span class="hot-search-count">{{ item.count }}</span>
       </li>
     </ul>

@@ -3,14 +3,25 @@
     <div class="home-header-fixed">
       <div class="home-header">
         <div class="home-header-left" @click="handleMenuClick">
-          <span class="iconfont menu-icon"></span>
+          <svg t="1683092827343" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+               p-id="6470" width="200" height="200">
+            <path d="M170.666667 213.333333m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z" p-id="6471"></path>
+            <path d="M170.666667 512m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z" p-id="6472"></path>
+            <path d="M170.666667 810.666667m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z" p-id="6473"></path>
+            <path
+                d="M896 778.666667H362.666667c-17.066667 0-32 14.933333-32 32s14.933333 32 32 32h533.333333c17.066667 0 32-14.933333 32-32s-14.933333-32-32-32zM362.666667 245.333333h533.333333c17.066667 0 32-14.933333 32-32s-14.933333-32-32-32H362.666667c-17.066667 0-32 14.933333-32 32s14.933333 32 32 32zM896 480H362.666667c-17.066667 0-32 14.933333-32 32s14.933333 32 32 32h533.333333c17.066667 0 32-14.933333 32-32s-14.933333-32-32-32z"
+                p-id="6474"></path>
+          </svg>
         </div>
         <router-link to="/" class="home-header-logo">
           <h1>AirJump</h1>
         </router-link>
-        <span class="home-header-right" @click="handleSearchClick">
-          <div class="iconfont search-icon"></div>
-        </span>
+        <div class="home-header-right" @click="handleSearchClick">
+          <svg t="1683093145494" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+               p-id="6613" width="200" height="200"><path
+              d="M945.066667 898.133333l-189.866667-189.866666c55.466667-64 87.466667-149.333333 87.466667-241.066667 0-204.8-168.533333-373.333333-373.333334-373.333333S96 264.533333 96 469.333333 264.533333 842.666667 469.333333 842.666667c91.733333 0 174.933333-34.133333 241.066667-87.466667l189.866667 189.866667c6.4 6.4 14.933333 8.533333 23.466666 8.533333s17.066667-2.133333 23.466667-8.533333c8.533333-12.8 8.533333-34.133333-2.133333-46.933334zM469.333333 778.666667C298.666667 778.666667 160 640 160 469.333333S298.666667 160 469.333333 160 778.666667 298.666667 778.666667 469.333333 640 778.666667 469.333333 778.666667z"
+              p-id="6614"></path></svg>
+        </div>
       </div>
     </div>
     <!-- 菜单部分 -->
@@ -121,6 +132,7 @@ export default {
 .home-header {
   display: flex;
   line-height: 1.1rem;
+  height: 1.1rem;
   backdrop-filter: saturate(5) blur(20px);
   background: rgba(255, 255, 255, 0.8);
   color: #4e5358; /* home-header colos */
@@ -133,11 +145,18 @@ export default {
   padding: 0 0.2rem;
 }
 
-.menu-icon::before {
-  content: "\e6b6";
-  text-align: center;
-  font-size: 0.6rem;
+.home-header-left svg,
+.home-header-right svg {
+  width: 0.6rem;
+  height: 0.6rem;
 }
+.home-header-left,
+.home-header-right{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 
 .home-header-logo {
   display: inline;
@@ -161,11 +180,6 @@ export default {
   padding: 0 0.2rem;
 }
 
-.search-icon::before {
-  content: "\e6ce";
-  text-align: center;
-  font-size: 0.6rem;
-}
 
 .menu {
   position: fixed;

@@ -21,7 +21,8 @@
 <script>
 import loginHeader from '@/pages/home/components/Header'
 import storageService from '../../service/storageService'
-import userService from "@/pages/home/service/userService";
+import activeInstance from '@/router/api'
+
 
 export default {
   name: 'Login',
@@ -38,7 +39,7 @@ export default {
   },
   methods: {
     login() {
-      userService.login(this.user).then(res => {
+      activeInstance.post("/api/v1/auth/login", this.user).then(res => {
             if (res.data.code !== 0) {
               this.$message.error(res.data.message)
               return

@@ -25,7 +25,7 @@
 <script>
 import registerHeader from '@/pages/home/components/Header'
 import storageService from '../../service/storageService'
-import userService from "@/pages/home/service/userService";
+import activeInstance from '@/router/api'
 
 export default {
   name: 'Register',
@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     register() {
-      userService.register(this.user).then(res => {
+      activeInstance.post("/api/v1/auth/register", this.user).then(res => {
         if (res.data.code !== 0) {
           this.$message.error(res.data.message)
           return

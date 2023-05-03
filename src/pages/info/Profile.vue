@@ -1,21 +1,24 @@
 <template>
-  <div>
-    <profile-header :username="userInfo.username"></profile-header>
+  <div v-if="isDataLoaded">
+    <profile-header :username="user.username"></profile-header>
     <ins-profile
-        :nickname="userInfo.nickname"
+        :nickname="user.nickname"
         :is-followed="user.isFollowed"
-        :post-count="user.postCount"
+        :post-count="user.posts"
         :follower-count="user.followerCount"
         :following-count="user.followingCount"
-        :profile-url="userInfo.background_url"
-        :about-me="userInfo.about_me"
-        :avatar-src="userInfo.avatar_url"
-        :background-url="userInfo.background_url"
+        :profile-url="user.backgroundUrl"
+        :about-me="user.aboutMe"
+        :avatar-src="user.avatarUrl"
+        :background-url="user.backgroundUrl"
         :isSelf="isSelf"
     ></ins-profile>
     <SwitchBar/>
     <ProfileProperty :profileCoverArr="profileCoverArr"/>
-
+  </div>
+  <div v-else>
+    <!-- 显示加载中的信息 -->
+    <loading/>
   </div>
 </template>
 
@@ -25,8 +28,9 @@ import InsProfile from "@/pages/info/components/InsProfile";
 import ProfileHeader from "@/pages/info/components/ProfileHeader";
 import SwitchBar from "@/pages/info/components/SwitchBar";
 import ProfileProperty from "@/pages/info/components/ProfileProperty";
-import infoService from "@/pages/info/service/infoService";
-
+import jwt_decode from 'jwt-decode';
+import axiosInstance from '@/router/api';
+import loading from "@/common/components/loading";
 
 export default {
   name: 'Profile',
@@ -34,28 +38,16 @@ export default {
     InsProfile,
     ProfileHeader,
     SwitchBar,
-    ProfileProperty
+    ProfileProperty,
+    loading
   },
   data() {
     return {
+      isDataLoaded: false,
       isSelf: true,
-      // 创建一个假的用户信息对象
-      user: {
-        isFollowed: false,
-        postCount: 0,
-        followerCount: 0,
-        followingCount: 0,
-      },
-      profileCoverArr: [],
-      profileUser: {
-        id: 0, // 请替换为要显示的用户的ID
-        // 其他用户信息
-      }
-    }
-  },
-  computed: {
-    userInfo() {
-      return JSON.parse(storageService.get(storageService.USER_INFO))
+      user: Array,
+      profileCoverArr: Array,
+      userId: null
     }
   },
   created() {
@@ -63,26 +55,62 @@ export default {
   },
   methods: {
     loadInfo() {
-      infoService.getProfile().then(res => {
-        if (res.data.code !== 0) {
-          this.$message.error(res.data.message)
-          return
-        }
-        // const userInfo = JSON.parse(storageService.get(storageService.USER_INFO))
-        // // this.isSelf = userInfo.id === this.profileUser.id
-        // console.log(userInfo.id)
-        // console.log(this.profileUser.id)
-        // console.log(this.isSelf)
-        this.user.followerCount = res.data.data.followerCount
-        this.user.followingCount = res.data.data.followingCount
-        this.user.isFollowed = res.data.data.isFollowing
-        this.user.postCount = res.data.data.posts
-        this.profileCoverArr = res.data.data.videos
-      }).catch(err => {
-        // 错误提示
-        console.log(err)
-        this.$message.error("System error:", err)
-      })
+      // 获取uid查询参数
+      const uid = this.$route.query.uid;
+      // 从本地存储中获取JWT
+      const token = storageService.get(storageService.USER_TOKEN);
+      // 解码token并获取"exp"属性
+      const decodedToken = jwt_decode(token);
+      const tokenExp = decodedToken.exp;
+
+      // 获取当前时间戳
+      const currentTime = Date.now() / 1000; // 将时间戳转换为以秒为单位
+      // 判断token是否已过期
+      if (tokenExp < currentTime) {
+        // 如果token已过期，需要重新进行身份验证
+        localStorage.removeItem('aikan_user_info');
+        localStorage.removeItem('aikan_user_token');
+        // 重定向到登录页面
+        window.location.href = '/login';
+        return;
+      }
+
+      if (uid && uid !== decodedToken.UserId) {
+        // 如果存在uid查询参数且不是本人，则显示特定用户的个人信息
+        this.userId = uid;
+        // 获取特定用户的个人信息...
+        axiosInstance.get("/api/v1/profile", {params: {uid: this.userId}}).then(res => {
+          if (res.data.code !== 0) {
+            this.$message.error(res.data.message);
+            return;
+          }
+          this.isSelf = false;
+          this.user = res.data.data
+          this.profileCoverArr = res.data.data.videos;
+          this.isDataLoaded = true;
+        }).catch(err => {
+          // 错误提示
+          console.log(err);
+          this.$message.error("profile get error");
+        });
+      } else {
+        // 如果不存在uid查询参数或者是本人，则显示自己的个人信息
+        axiosInstance.get("/api/v1/profile", {params: {uid: this.userId}}).then(res => {
+          if (res.data.code !== 0) {
+            this.$message.error(res.data.message);
+            return;
+          }
+          this.userId = decodedToken.UserId;
+          this.isSelf = true;
+          this.user = res.data.data
+          this.profileCoverArr = res.data.data.videos;
+          this.isDataLoaded = true;
+        }).catch(err => {
+          // 错误提示
+          console.log(err);
+          this.$message.error("profile get self error");
+        });
+      }
     }
   }
 }

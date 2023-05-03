@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     handleError(item) {
-      item.cover_url = 'https://img.lovepik.com/element/40021/7866.png_860.png'
+      item.cover_url = 'https://bup.pub/error_404.jpg'
     }
   }
 }
