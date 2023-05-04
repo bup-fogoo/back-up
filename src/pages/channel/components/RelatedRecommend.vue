@@ -1,11 +1,11 @@
 <template>
-  <div class="swich">
-    <div class="swich-title">
-      <span @click="handleRecommend" :class="showComment===0 ? 'swich-color' : ''">相关推荐</span>
-      <span @click="handleComment" :class="showComment===1 ? 'swich-color' : ''">评论0</span>
+  <div class="related-recommend">
+    <div class="related-recommend-title">
+      <span @click="handleRecommend" :class="showComment===0 ? 'related-recommend-color' : ''">Related</span>
+      <span @click="handleComment" :class="showComment===1 ? 'related-recommend-color' : ''">Comment</span>
     </div>
-    <div class="swich-list-box" :class="showComment===1 ? 'display-open' : ''">
-      <div class="swich-list">
+    <div class="related-recommend-list-box" :class="showComment===1 ? 'display-open' : ''">
+      <div class="related-recommend-list">
         <div class="list-box"
              v-for="rr of RelateRecommend"
              :key="rr.id"
@@ -28,7 +28,7 @@
         </div>
       </div>
     </div>
-    <div class="swich-list-comment" :class="showComment===0 ? 'display-open' : ''">
+    <div class="related-recommend-list-comment" :class="showComment===0 ? 'display-open' : ''">
       <div class="comments-header">
         <a class="comment-simplebox-icon build-img">
           <img src="https://bup.pub/v-head-02.jpg" alt="">
@@ -115,7 +115,7 @@ export default {
       res = res.data
       if (res.code === 0) {
         this.RelateRecommend = res.data
-        console.log(this.RelateRecommend)
+        // console.log(this.RelateRecommend)
       }
     },
     handleRecommend: function () {
@@ -142,7 +142,7 @@ export default {
     },
     handleImageError (event) {
       // 处理加载失败的情况
-      event.target.src = 'https://img.win3000.com/m00/a0/67/af98e3666efe3e454f27d1191832b407.jpg'
+      event.target.src = 'https://bup.pub/error_404.jpg'
     },
     refresh () {
       this.$router.go(0)
@@ -179,27 +179,27 @@ export default {
   -webkit-box-orient: vertical;
 }
 
-.swich-list {
+.related-recommend-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
-.swich {
+.related-recommend {
   padding: 0 3.3vw;
 }
 
-.swich-title {
+.related-recommend-title {
   display: flex;
   justify-content: space-evenly;
 }
 
-.swich-title span {
+.related-recommend-title span {
   height: 11.73333vw;
   line-height: 11.73333vw;
 }
 
-.swich-color {
+.related-recommend-color {
   color: #66c6f6;
 }
 .comment-count {

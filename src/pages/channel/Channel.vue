@@ -1,38 +1,51 @@
 <template>
   <div>
-    <channel-header></channel-header>
-    <channel-PlayerWrap></channel-PlayerWrap>
-<!--    <VideoComment/>-->
+    <channelHeader/>
+    <div v-if="isDataLoaded">
+      <channelVideoPlayer :videoInfo="videoInfo"/>
+      <VideoInfo :videoInfo="videoInfo"/>
+      <RelatedRecommend/>
+    </div>
+    <loading v-else/>
   </div>
 </template>
 
 <script>
 import channelHeader from '@/pages/home/components/Header'
-import VideoComment from "@/pages/channel/components/VideoComment";
-import channelPlayerWrap from '@/pages/channel/components/VideoPlayer'
-// import axios from 'axios'
+import channelVideoComment from "@/pages/channel/components/VideoComment";
+import channelVideoPlayer from '@/pages/channel/components/VideoPlayer'
+import VideoInfo from "@/pages/channel/components/VideoInfo";
+import RelatedRecommend from "@/pages/channel/components/RelatedRecommend";
+import activeInstance from "@/router/api"
+import loading from "@/common/components/loading";
 
 export default {
   name: 'Channel',
   components: {
     channelHeader,
-    channelPlayerWrap,
-    VideoComment
+    channelVideoPlayer,
+    channelVideoComment,
+    VideoInfo,
+    RelatedRecommend,
+    loading
   },
   data() {
     return {
-      contentList: []
+      isDataLoaded: false,
+      contentList: [],
+      videoInfo: Object
     }
   },
   methods: {
     getChannelInfo() {
-      // axios.get('/api/v1/channel').then(this.getChannelInfoSucc)
+      activeInstance.get(`/api/v1${this.$route.path}?t=${Date.now()}`).then(this.getChannelInfoSucc)
     },
     getChannelInfoSucc(res) {
       res = res.data
-      if (res.data && res.ret) {
-        const data = res.data
-        this.contentList = data.contentList
+      if (res.code === 0) {
+        this.videoInfo = res.data
+        console.log(this.videoInfo)
+        this.isDataLoaded = true;
       }
     }
   },

@@ -2,63 +2,26 @@
   <div>
     <div class="r-slide-menu">
       <div class="block-video">
-        <div v-if="videoInfo">
-          <video-mui-player
-              :url="videoInfo.url.toString()"
-              :cover="videoInfo.cover_url.toString()"
-              :title="videoInfo.title.toString()"
-          ></video-mui-player>
-        </div>
-        <div v-else>
-          <loading/>
-        </div>
+        <XgPlayer
+            v-if="videoInfo"
+            :url="videoInfo.url.toString()"
+            :cover="videoInfo.cover_url.toString()"
+        />
       </div>
-      <video-info :videoInfo="videoInfo"></video-info>
-      <!--      <video-up-recommend></video-up-recommend>-->
-      <related-recommend></related-recommend>
     </div>
   </div>
 </template>
 <script>
-import VideoUpRecommend from '@/pages/channel/components/VideoUpRecommend'
-import VideoInfo from '@/pages/channel/components/VideoInfo'
-import VideoMuiPlayer from '@/pages/channel/components/VideoMUIPlayer'
-import RelatedRecommend from '@/pages/channel/components/RelatedRecommend'
-import loading from "@/common/components/loading";
-import axios from 'axios'
-import storageService from '../../home/service/storageService'
+import XgPlayer from "@/common/XgPlayer";
 
 
 export default {
   name: 'ChannelVideoPlayer',
   components: {
-    VideoUpRecommend,
-    VideoMuiPlayer,
-    VideoInfo,
-    RelatedRecommend,
-    loading
+    XgPlayer
   },
   props: {
-    list: Array
-  },
-  data() {
-    return {
-      videoInfo: null
-    }
-  },
-  methods: {
-    getChannelInfo() {
-      axios.get(`/api/v1${this.$route.path}?t=${Date.now()}`).then(this.getChannelInfoSucc)
-    },
-    getChannelInfoSucc: function (res) {
-      res = res.data
-      if (res.code === 0) {
-        this.videoInfo = res.data
-      }
-    }
-  },
-  mounted() {
-    this.getChannelInfo()
+    videoInfo: Object
   }
 }
 </script>
@@ -95,8 +58,6 @@ export default {
   width: 100%;
   height: 56.8vw;
 }
-
-
 
 
 </style>

@@ -17,7 +17,7 @@
           <div class="face-img">
             <router-link
                 role="link"
-                :to="'/' + videoInfo.user_id"
+                :to="'/profile?uid=' + videoInfo.user_id"
             >
               <img :src="videoInfo.avatar_url" alt=""/>
             </router-link>
@@ -25,11 +25,11 @@
           <div class="face-up">
             <router-link
                 role="link"
-                :to="'/@' + videoInfo.user_id"
+                :to="'/profile?uid=' + videoInfo.user_id"
             >
               <span>{{ videoInfo.nickname }}</span>
             </router-link>
-            <p>0粉丝</p>
+            <p>0fans</p>
           </div>
           <div class="follow-add iconfont" @click="handleFollowClick">
             <svg t="1683095141366" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -43,8 +43,8 @@
         </div>
       </div>
       <div class="data">
-        <span class="view">{{ videoInfo.views }}次观看</span>
-        <span class="danmu">0弹幕</span>
+        <span class="view">{{ videoInfo.views }}views</span>
+        <span class="danmu">0danmu</span>
         <span class="time">{{ videoInfo.created_at }}</span>
         <span class="avid">{{ videoInfo.id }}</span>
       </div>
@@ -70,7 +70,7 @@
                p-id="7034" width="200" height="200"><path
               d="M904.533333 522.666667L853.333333 185.6c-8.533333-51.2-55.466667-89.6-106.666666-89.6H204.8c-59.733333 0-108.8 46.933333-108.8 106.666667v258.133333c0 57.6 49.066667 106.666667 108.8 106.666667h91.733333l125.866667 281.6c2.133333 2.133333 2.133333 4.266667 4.266667 6.4 14.933333 23.466667 38.4 36.266667 64 36.266666 12.8 0 25.6-4.266667 38.4-10.666666 57.6-34.133333 87.466667-72.533333 87.466666-117.333334v-117.333333h183.466667c32 0 59.733333-12.8 81.066667-36.266667 19.2-25.6 29.866667-55.466667 23.466666-87.466666z m-616.533333-21.333334H204.8c-25.6 0-44.8-19.2-44.8-42.666666v-256c0-23.466667 19.2-42.666667 44.8-42.666667h83.2v341.333333zM832 567.466667c-8.533333 8.533333-21.333333 14.933333-34.133333 14.933333h-213.333334c-17.066667 0-32 14.933333-32 32v149.333333c0 25.6-29.866667 49.066667-55.466666 64-4.266667 2.133333-10.666667 2.133333-14.933334-4.266666L352 533.333333V160H746.666667c21.333333 0 40.533333 14.933333 42.666666 36.266667L842.666667 533.333333c2.133333 10.666667-2.133333 23.466667-10.666667 34.133334z"
               p-id="7035"></path></svg>
-            <span>0</span>
+            <span></span>
           </span>
         <span
             class="toolbar-icon-collection iconfont"
@@ -135,7 +135,7 @@
                         d="M505.6 750.933333l-66.133333 68.266667c-64 61.866667-166.4 61.866667-230.4-2.133333-64-64-64-168.533333-2.133334-232.533334l117.333334-119.466666c34.133333-34.133333 81.066667-51.2 128-49.066667 46.933333 4.266667 91.733333 27.733333 119.466666 66.133333 10.666667 14.933333 29.866667 17.066667 44.8 6.4 14.933333-10.666667 17.066667-29.866667 6.4-44.8-40.533333-53.333333-100.266667-87.466667-166.4-91.733333-66.133333-4.266667-130.133333 19.2-177.066666 66.133333l-117.333334 119.466667c-85.333333 89.6-85.333333 234.666667 2.133334 322.133333 44.8 44.8 102.4 66.133333 162.133333 66.133334 57.6 0 115.2-21.333333 160-64l66.133333-68.266667c12.8-12.8 12.8-32 0-44.8-14.933333-10.666667-34.133333-10.666667-46.933333 2.133333z"
                         p-id="7316"></path>
                   </svg>
-                  <span>快分享给你的好友吧！</span>
+                  <span>Share it with your friends!</span>
                 </div>
 
                 <div>
@@ -149,7 +149,7 @@
 
               </div>
               <div style="margin-top: 20px">
-                <span @click="copyUrl">{{ `${this.url}` }}</span>
+                <span @click="copyUrl">{{ url }}</span>
               </div>
             </div>
 
@@ -176,7 +176,7 @@ export default {
       index: 0,
       active: -1,
       isLogin: false,
-      url: ''
+      url: null
     }
   },
   mounted() {
@@ -248,7 +248,7 @@ export default {
     copyUrl() {
       if (navigator.clipboard) {
         // 使用 Clipboard API 复制文本到剪贴板中
-        navigator.clipboard.writeText(this.text)
+        navigator.clipboard.writeText(this.url)
             .then(() => {
               console.log('文本已经复制到剪贴板');
             })

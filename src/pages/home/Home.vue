@@ -28,7 +28,7 @@ export default {
     loadingText
   },
   mounted() {
-    window.addEventListener('scroll', this.handleScroll)
+    window.addEventListener('scroll', this.handleScroll, { passive: true });
   },
   data() {
     return {
@@ -68,7 +68,10 @@ export default {
       }
       this.loading = false // 标记为未加载状态
     },
-    handleScroll() {
+    handleScroll(event) {
+      if (event.target !== document) {
+        return; // 如果事件触发的元素不是当前页面元素，则直接返回
+      }
       const scrollTop = document.documentElement.scrollTop || document.body.scrollTop // 获取滚动高度
       const windowHeight = document.documentElement.clientHeight // 获取窗口高度
       const scrollHeight = document.documentElement.scrollHeight // 获取页面高度

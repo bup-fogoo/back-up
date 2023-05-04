@@ -23,18 +23,18 @@ const router = new Router({
         }, {
             path: '/register',
             name: 'Register',
-            component: () => import('../pages/home/components/user/Register')
+            component: () => import('@/pages/home/components/user/Register')
         }, {
             path: '/login',
             name: 'Login',
-            component: () => import('../pages/home/components/user/Login')
+            component: () => import('@/pages/home/components/user/Login')
         }, {
             path: '/profile',
             name: 'Profile',
             // meta: {
             //   auth: true
             // },
-            component: () => import('../pages/info/Profile')
+            component: () => import('@/pages/info/Profile')
         }
     ],
     scrollBehavior(to, from, savedPosition) {

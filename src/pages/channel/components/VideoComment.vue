@@ -18,7 +18,7 @@
         <div class="comment-content">
           <div class="comment-header">
             <span class="comment-title">title</span>
-            <span class="comment-published-time">1个月前</span>
+            <span class="comment-published-time">a month ago</span>
           </div>
           <p class="comment-text user-text">Think you. Very Good~~~~oops!!! </p>
           <div class="comment-details secondary-text cbox">
