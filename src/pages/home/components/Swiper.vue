@@ -110,7 +110,7 @@ export default {
 
 .swiper-slide-img {
   display: block;
-  width: 100%;
+  width: 100vw;
   /*height: 60vw;*/
   height: 150vw;
   object-fit: cover;

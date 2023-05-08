@@ -16,7 +16,7 @@
             :key="rr.id"
             @click.native="refresh"
           >
-            <img
+            <img referrer="no-referrer|origin|unsafe-url"
               :src="rr.cover_url"
               @load="handleImageLoad" @error="handleImageError"
               alt=""
@@ -197,6 +197,7 @@ export default {
 .related-recommend-title span {
   height: 11.73333vw;
   line-height: 11.73333vw;
+  font-size: 4.5vw;
 }
 
 .related-recommend-color {

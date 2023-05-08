@@ -13,8 +13,13 @@
         :background-url="user.backgroundUrl"
         :isSelf="isSelf"
     ></ins-profile>
-    <SwitchBar/>
-    <ProfileProperty :profileCoverArr="profileCoverArr"/>
+    <SwitchBar @switch="handleSwitch"/>
+    <div class="card-container">
+      <div v-for="(card, index) in cards" :key="index" class="card"
+           :style="{ transform: `translateX(${(index - currentIndex) * 100}%)` }">
+        <ProfileProperty :profileCoverArr="card"/>
+      </div>
+    </div>
   </div>
   <div v-else>
     <!-- 显示加载中的信息 -->
@@ -47,7 +52,9 @@ export default {
       isSelf: true,
       user: Array,
       profileCoverArr: Array,
-      userId: null
+      userId: null,
+      currentIndex: 0,
+      cards: []
     }
   },
   created() {
@@ -86,12 +93,31 @@ export default {
           }
           this.isSelf = false;
           this.user = res.data.data
-          this.profileCoverArr = res.data.data.videos;
+          this.$set(this.cards, 0, res.data.data.videos);
           this.isDataLoaded = true;
         }).catch(err => {
           // 错误提示
           console.log(err);
           this.$message.error("profile get error");
+        });
+        axiosInstance.get(`/api/v1/videos/${uid}/collections`).then(res => {
+          if (res.data.code !== 0) {
+            this.$message.error(res.data.message);
+            return;
+          }
+          this.$set(this.cards, 1, res.data.data);
+        }).catch(error => {
+          console.log(error);
+        });
+
+        axiosInstance.get(`/api/v1/videos/${uid}/likes`).then(res => {
+          if (res.data.code !== 0) {
+            this.$message.error(res.data.message);
+            return;
+          }
+          this.$set(this.cards, 2, res.data.data);
+        }).catch(error => {
+          console.log(error);
         });
       } else {
         // 如果不存在uid查询参数或者是本人，则显示自己的个人信息
@@ -103,19 +129,58 @@ export default {
           this.userId = decodedToken.UserId;
           this.isSelf = true;
           this.user = res.data.data
-          this.profileCoverArr = res.data.data.videos;
+          this.$set(this.cards, 0, res.data.data.videos);
           this.isDataLoaded = true;
         }).catch(err => {
           // 错误提示
           console.log(err);
           this.$message.error("profile get self error");
         });
+        axiosInstance.get(`/api/v1/videos/${decodedToken.UserId}/collections`).then(res => {
+          if (res.data.code !== 0) {
+            this.$message.error(res.data.message);
+            return;
+          }
+          this.$set(this.cards, 1, res.data.data);
+        }).catch(error => {
+          console.log(error);
+        });
+
+        axiosInstance.get(`/api/v1/videos/${decodedToken.UserId}/likes`).then(res => {
+          if (res.data.code !== 0) {
+            this.$message.error(res.data.message);
+            return;
+          }
+          this.$set(this.cards, 2, res.data.data);
+        }).catch(error => {
+          console.log(error);
+        });
       }
-    }
+    },
+    handleSwitch(index) {
+      this.currentIndex = index;
+    },
   }
 }
 </script>
 
-<style>
+<style scoped>
+.card-container {
+  position: relative;
+  width: 100vw;
+  height: 100vw;
+  overflow: hidden;
+}
+
+.card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
 
 </style>

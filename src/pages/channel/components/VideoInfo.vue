@@ -54,7 +54,7 @@
     </div>
     <div class="toolbar">
       <div style="margin: 2vw 3.3vw" class="iconfont">
-        <span :class="active===index ? 'toolbar-icon-like-true iconfont':'toolbar-icon-like iconfont'"
+        <span class="iconfont"
               @click="handleLikeClick">
           <svg t="1683094679159" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
                p-id="7174" width="200" height="200"><path
@@ -92,80 +92,42 @@
               p-id="6895"></path></svg>
           </span>
       </div>
-      <div class="share">
-        <transition
-            name="custom-classes-transition"
-            enter-active-class="animate__animated animate__fadeIn"
-            leave-active-class="animate__animated animate__fadeOut"
-        >
-          <div
-              style="
-                position: fixed;
-                height: 100%;
-                top: 0;
-                left: 0;
-                right: 0;
-                z-index:999;
-                background: rgba(0, 0, 0, 0.7);
-              "
-              v-show="showBlock"
-              @click="handleBlockClick"
-          ></div>
-        </transition>
-        <div style="padding: 0">
-          <transition
-              name="fade"
-              enter-active-class="animate__animated animate__fadeInUp"
-              leave-active-class="animate__animated animate__fadeOutDown"
-          >
-            <div
-                class="share-popup"
-                style="height: 20%; z-index: 1000; padding: 3.3vw"
-                v-show="showShare"
-            >
-              <div>
-
-                <div class="iconfont">
-                  <svg t="1683095002821" class="icon" viewBox="0 0 1024 1024" version="1.1"
-                       xmlns="http://www.w3.org/2000/svg" p-id="7314" width="200" height="200">
-                    <path
-                        d="M861.866667 164.266667c-87.466667-87.466667-230.4-89.6-320-2.133334l-68.266667 68.266667c-12.8 12.8-12.8 32 0 44.8s32 12.8 44.8 0l68.266667-68.266667c64-61.866667 166.4-61.866667 230.4 2.133334 64 64 64 168.533333 2.133333 232.533333l-117.333333 119.466667c-34.133333 34.133333-81.066667 51.2-128 49.066666-46.933333-4.266667-91.733333-27.733333-119.466667-66.133333-10.666667-14.933333-29.866667-17.066667-44.8-6.4-14.933333 10.666667-17.066667 29.866667-6.4 44.8 40.533333 53.333333 100.266667 87.466667 166.4 91.733333h17.066667c59.733333 0 119.466667-23.466667 162.133333-68.266666l117.333333-119.466667c83.2-89.6 83.2-234.666667-4.266666-322.133333z"
-                        p-id="7315"></path>
-                    <path
-                        d="M505.6 750.933333l-66.133333 68.266667c-64 61.866667-166.4 61.866667-230.4-2.133333-64-64-64-168.533333-2.133334-232.533334l117.333334-119.466666c34.133333-34.133333 81.066667-51.2 128-49.066667 46.933333 4.266667 91.733333 27.733333 119.466666 66.133333 10.666667 14.933333 29.866667 17.066667 44.8 6.4 14.933333-10.666667 17.066667-29.866667 6.4-44.8-40.533333-53.333333-100.266667-87.466667-166.4-91.733333-66.133333-4.266667-130.133333 19.2-177.066666 66.133333l-117.333334 119.466667c-85.333333 89.6-85.333333 234.666667 2.133334 322.133333 44.8 44.8 102.4 66.133333 162.133333 66.133334 57.6 0 115.2-21.333333 160-64l66.133333-68.266667c12.8-12.8 12.8-32 0-44.8-14.933333-10.666667-34.133333-10.666667-46.933333 2.133333z"
-                        p-id="7316"></path>
-                  </svg>
-                  <span>Share it with your friends!</span>
-                </div>
-
-                <div>
-                  <span class="close iconfont" @click="handleCloseClick">
+      <popup v-show="showShare">
+        <div class="iconfont">
+          <svg t="1683095002821" class="icon" viewBox="0 0 1024 1024" version="1.1"
+               xmlns="http://www.w3.org/2000/svg" p-id="7314" width="200" height="200">
+            <path
+                d="M861.866667 164.266667c-87.466667-87.466667-230.4-89.6-320-2.133334l-68.266667 68.266667c-12.8 12.8-12.8 32 0 44.8s32 12.8 44.8 0l68.266667-68.266667c64-61.866667 166.4-61.866667 230.4 2.133334 64 64 64 168.533333 2.133333 232.533333l-117.333333 119.466667c-34.133333 34.133333-81.066667 51.2-128 49.066666-46.933333-4.266667-91.733333-27.733333-119.466667-66.133333-10.666667-14.933333-29.866667-17.066667-44.8-6.4-14.933333 10.666667-17.066667 29.866667-6.4 44.8 40.533333 53.333333 100.266667 87.466667 166.4 91.733333h17.066667c59.733333 0 119.466667-23.466667 162.133333-68.266666l117.333333-119.466667c83.2-89.6 83.2-234.666667-4.266666-322.133333z"
+                p-id="7315"></path>
+            <path
+                d="M505.6 750.933333l-66.133333 68.266667c-64 61.866667-166.4 61.866667-230.4-2.133333-64-64-64-168.533333-2.133334-232.533334l117.333334-119.466666c34.133333-34.133333 81.066667-51.2 128-49.066667 46.933333 4.266667 91.733333 27.733333 119.466666 66.133333 10.666667 14.933333 29.866667 17.066667 44.8 6.4 14.933333-10.666667 17.066667-29.866667 6.4-44.8-40.533333-53.333333-100.266667-87.466667-166.4-91.733333-66.133333-4.266667-130.133333 19.2-177.066666 66.133333l-117.333334 119.466667c-85.333333 89.6-85.333333 234.666667 2.133334 322.133333 44.8 44.8 102.4 66.133333 162.133333 66.133334 57.6 0 115.2-21.333333 160-64l66.133333-68.266667c12.8-12.8 12.8-32 0-44.8-14.933333-10.666667-34.133333-10.666667-46.933333 2.133333z"
+                p-id="7316"></path>
+          </svg>
+          <span>Share</span>
+          <span class="close iconfont" @click="handleCloseClick">
                     <svg t="1683095023116" class="icon" viewBox="0 0 1024 1024" version="1.1"
                          xmlns="http://www.w3.org/2000/svg" p-id="7455" width="200" height="200"><path
                         d="M571.733333 512l268.8-268.8c17.066667-17.066667 17.066667-42.666667 0-59.733333-17.066667-17.066667-42.666667-17.066667-59.733333 0L512 452.266667 243.2 183.466667c-17.066667-17.066667-42.666667-17.066667-59.733333 0-17.066667 17.066667-17.066667 42.666667 0 59.733333L452.266667 512 183.466667 780.8c-17.066667 17.066667-17.066667 42.666667 0 59.733333 8.533333 8.533333 19.2 12.8 29.866666 12.8s21.333333-4.266667 29.866667-12.8L512 571.733333l268.8 268.8c8.533333 8.533333 19.2 12.8 29.866667 12.8s21.333333-4.266667 29.866666-12.8c17.066667-17.066667 17.066667-42.666667 0-59.733333L571.733333 512z"
                         p-id="7456"></path></svg>
-                  </span>
-                </div>
-
-              </div>
-              <div style="margin-top: 20px">
-                <span @click="copyUrl">{{ url }}</span>
-              </div>
-            </div>
-
-          </transition>
+          </span>
         </div>
-      </div>
+        <div style="margin-top: 20px">
+          <span @click="copyUrl">{{ url }}</span>
+        </div>
+      </popup>
     </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
 import storageService from "@/pages/home/service/storageService";
+import axiosInstance from "@/router/api";
+import Popup from "@/common/components/popup";
+import jwt_decode from "jwt-decode";
 
 export default {
   name: 'VideoInfo',
+  components: {Popup},
   props: {
     videoInfo: {type: Object, default: null}
   },
@@ -186,6 +148,23 @@ export default {
   methods: {
     handleIsLogin: function () {
       if (localStorage.getItem('aikan_user_token') && localStorage.getItem('aikan_user_info')) {
+        // 从本地存储中获取JWT
+        const token = storageService.get(storageService.USER_TOKEN);
+        // 解码token并获取"exp"属性
+        const decodedToken = jwt_decode(token);
+        const tokenExp = decodedToken.exp;
+
+        // 获取当前时间戳
+        const currentTime = Date.now() / 1000; // 将时间戳转换为以秒为单位
+        // 判断token是否已过期
+        if (tokenExp < currentTime) {
+          // 如果token已过期，需要重新进行身份验证
+          localStorage.removeItem('aikan_user_info');
+          localStorage.removeItem('aikan_user_token');
+          // 重定向到登录页面
+          window.location.href = '/login';
+          return;
+        }
         this.isLogin = true
         return this.isLogin
       } else {
@@ -202,6 +181,18 @@ export default {
     },
     handleLikeClick: function () {
       if (this.handleIsLogin()) {
+        axiosInstance.post(`/api/v1/video/${this.$route.params.id}/like`, {params: {uid: this.userId}}).then(res => {
+          if (res.data.code !== 0) {
+            this.$message.error(res.data.message);
+            return;
+          }
+          this.$message.success(res.data.message)
+          // this.isSelf = false;
+        }).catch(err => {
+          // 错误提示
+          console.log(err);
+          this.$message.error("like sytem false");
+        });
       } else {
         this.$message.warning('请先登入!')
       }
@@ -215,7 +206,18 @@ export default {
     },
     handleCollectionClick: function () {
       if (this.handleIsLogin()) {
-        this.$message.success('collection ok')
+        axiosInstance.post(`/api/v1/video/${this.$route.params.id}/collection`, {params: {uid: this.userId}}).then(res => {
+          if (res.data.code !== 0) {
+            this.$message.error(res.data.message);
+            return;
+          }
+          this.$message.success(res.data.message)
+          // this.isSelf = false;
+        }).catch(err => {
+          // 错误提示
+          console.log(err);
+          this.$message.error("like system false");
+        });
       } else {
         this.$message.warning('请先登入!')
       }
@@ -268,6 +270,7 @@ export default {
 .block-info {
   padding: 3vw 3.3vw 0 3.3vw;
 }
+
 .block-info-title {
   display: flex;
 }
@@ -386,21 +389,6 @@ export default {
   float: right;
 }
 
-
-.share-popup {
-  position: fixed;
-  bottom: 0;
-  margin-bottom: -11px;
-  right: 0;
-  left: 0;
-  border-radius: 3.3vw;
-  max-height: 100%;
-  overflow-y: auto;
-  background-color: #fff;
-  transition: transform 0.3s, -webkit-transform 0.1s;
-  -webkit-overflow-scrolling: touch;
-}
-
 .iconfont {
   display: flex;
   align-items: center;
@@ -409,8 +397,8 @@ export default {
 
 .iconfont svg {
   cursor: pointer;
-  width: .4rem;
-  height: .4rem;
+  width: 5vw;
+  height: 5vw;
   fill: #515151;
 }
 
@@ -422,35 +410,4 @@ export default {
   fill: #66c6f6 !important;
 }
 
-.close {
-  float: right;
-}
-
-
-.menu-hidden {
-  padding: 3.3vw;
-  position: relative;
-}
-
-.menu-hidden div {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.share-popup > div {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.share-popup > div > div {
-  display: flex;
-  align-items: center;
-}
-
-.share-popup > div > .close {
-  margin-left: 10px;
-}
 </style>

@@ -4,7 +4,6 @@
     <home-wrap>
       <home-swiper :banners="swiperList"></home-swiper>
       <home-recommend :shots="recommendList"></home-recommend>
-      <!--      <div v-if="loading" style="text-align: center; margin-top: 10px;">加载中...</div>-->
       <loadingText v-if="loading"/>
     </home-wrap>
   </div>

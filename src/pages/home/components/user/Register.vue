@@ -74,6 +74,14 @@ export default {
 
 <style scoped>
 
+.btn {
+  display: flex;
+  justify-content: center; /* 水平居中 */
+  align-items: center; /* 垂直居中 */
+  height: 35px;
+  line-height: 35px;
+}
+
 .login-wrapper {
   font-family: 'Open Sans Light';
   letter-spacing: .05em;

@@ -3,7 +3,7 @@
     <div class="shots-item" v-for="shot in shots" :key="shot.id">
       <router-link :to="/video/+shot.id">
         <div class="shots-preview">
-          <img :src="shot.cover_url" alt="shot preview" class="preview-image" :class="{ 'loading': loading }"
+          <img referrer="no-referrer|origin|unsafe-url" :src="shot.cover_url" alt="shot preview" class="preview-image" :class="{ 'loading': loading }"
                @load="handleImageLoad" @error="handleImageError">
           <div v-if="loading" class="loading-animation"></div>
         </div>
