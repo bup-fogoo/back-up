@@ -4,22 +4,22 @@
       <div class="home-hidden">
         <div class="hh-label">
           <i></i>
-          <span>hello</span>
+          <span>right</span>
         </div>
         <div class="hh-recom">
           <i></i>
-          <span>word</span>
+          <span>slide</span>
         </div>
       </div>
     </div>
     <div
-      class="r-slide-menu-content"
-      :class="transitionClass"
-      :style="contentStyle"
-      @touchstart="touchstart"
-      @touchmove="touchmove"
-      @touchend="touchend"
-      @click="handleContentClick"
+        class="r-slide-menu-content"
+        :class="transitionClass"
+        :style="contentStyle"
+        @touchstart="touchstart"
+        @touchmove="touchmove"
+        @touchend="touchend"
+        @click="handleContentClick"
     >
       <slot></slot>
     </div>
@@ -39,7 +39,7 @@ export default {
       default: 2
     }
   },
-  data () {
+  data() {
     return {
       isMoving: false,
       transitionClass: '',
@@ -58,30 +58,28 @@ export default {
     }
   },
   computed: {
-    wrapStyle () {
-      let style = {
+    wrapStyle() {
+      return {
         width: `${this.width}px`,
         left: `-${this.width / this.ratio}px`,
         transform: `translate3d(${this.move.x / this.ratio}px, 0px, 0px)`
       }
-      return style
     },
-    contentStyle () {
-      let style = {
+    contentStyle() {
+      return {
         transform: `translate3d(${this.move.x}px, 0px, 0px)`
       }
-      return style
     }
   },
   methods: {
-    touchstart (e) {
+    touchstart(e) {
       this.oldPoint.x = e.touches[0].pageX
       this.oldPoint.y = e.touches[0].pageY
       this.startPoint.x = this.move.x
       this.startPoint.y = this.move.y
       this.setTransition()
     },
-    touchmove (e) {
+    touchmove(e) {
       let newPoint = {
         x: e.touches[0].pageX,
         y: e.touches[0].pageY
@@ -91,8 +89,8 @@ export default {
       if (Math.abs(moveX) < Math.abs(moveY)) return false
       e.preventDefault()
       this.isMoving = true
-      moveX = this.startPoint.x * 1 + moveX * 1
-      moveY = this.startPoint.y * 1 + moveY * 1
+      moveX = this.startPoint.x * 1 + moveX
+      moveY = this.startPoint.y + moveY
 
       if (moveX >= this.width) {
         this.move.x = this.width
@@ -102,17 +100,17 @@ export default {
         this.move.x = moveX
       }
     },
-    touchend (e) {
+    touchend(e) {
       this.setTransition(true)
       this.isMoving = false
       this.move.x = this.move.x > this.width / this.ratio ? this.width : 0
     },
     // 点击切换
-    switch () {
+    switch() {
       this.setTransition(true)
       this.move.x = this.move.x === 0 ? this.width : 0
     },
-    setTransition (isTransition = false) {
+    setTransition(isTransition = false) {
       this.transitionClass = isTransition ? 'r-slide-menu-transition' : ''
     },
     handleContentClick: function () {
@@ -128,25 +126,31 @@ export default {
   width: 200px;
   line-height: 30px;
 }
+
 .r-slide-menu-wrap,
 .r-slide-menu-content {
   /* 滑动的速度 */
-  -webkit-transition: transform 0.3s;
-  transition: transform 0.3s;
+  -webkit-transition: transform 0.5s;
+  transition: transform 0.5s;
+  will-change: transform;
 }
+
 html:root {
   --animate-duration: 0.6s !important;
   --animate-delay: 0.5s !important;
   --animate-repeat: 0.5s !important;
 }
+
 .r-slide-menu-content {
   background: #f5f6f7;
   /* background-image: linear-gradient(to right, #a8edea, #fed6e3); */
 }
+
 .r-slide-menu-wrap {
   position: absolute;
   /* background-image: linear-gradient(to right, #fed6e3, #a8edea); */
 }
+
 .home-hidden {
   height: 100%;
   margin: 3.3vw;

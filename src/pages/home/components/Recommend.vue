@@ -1,13 +1,13 @@
 <template>
   <div class="shots-container">
     <div class="shots-item" v-for="shot in shots" :key="shot.id">
-      <router-link :to="/video/+shot.id">
+      <a :href="/video/+shot.id">
         <div class="shots-preview">
-          <img referrer="no-referrer|origin|unsafe-url" :src="shot.cover_url" alt="shot preview" class="preview-image" :class="{ 'loading': loading }"
+          <img :src="shot.cover_url" alt="shot preview" class="preview-image" :class="{ 'loading': loading }"
                @load="handleImageLoad" @error="handleImageError">
           <div v-if="loading" class="loading-animation"></div>
         </div>
-      </router-link>
+      </a>
       <div class="details">
         <div class="media-channel">
           <div><a :href="'/profile?uid='+shot.user_id">
@@ -29,7 +29,7 @@
                   class="ajm-badge-and-byline-item-byline" dir="auto" aria-hidden="true"><span
                   class="aj-core-attributed-string" aria-label="35万次观看" role="text">{{
                   shot.views
-                }}万次观看</span></span><span
+                }} views</span></span><span
                   class="ajm-badge-and-byline-separator" aria-hidden="true">•</span><span
                   class="ajm-badge-and-byline-item-byline" dir="auto" aria-hidden="true"><span
                   class="aj-core-attributed-string" role="text">{{ shot.created_at | timeAgo }}</span></span></div>

@@ -29,7 +29,7 @@
             >
               <span>{{ videoInfo.nickname }}</span>
             </router-link>
-            <p>0fans</p>
+            <p>0 fans</p>
           </div>
           <div class="follow-add iconfont" @click="handleFollowClick">
             <svg t="1683095141366" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -43,8 +43,8 @@
         </div>
       </div>
       <div class="data">
-        <span class="view">{{ videoInfo.views }}views</span>
-        <span class="danmu">0danmu</span>
+        <span class="view">{{ videoInfo.views }} views</span>
+        <span class="danmu">0 danmu</span>
         <span class="time">{{ videoInfo.created_at }}</span>
         <span class="avid">{{ videoInfo.id }}</span>
       </div>
@@ -92,24 +92,9 @@
               p-id="6895"></path></svg>
           </span>
       </div>
-      <popup v-show="showShare">
-        <div class="iconfont">
-          <svg t="1683095002821" class="icon" viewBox="0 0 1024 1024" version="1.1"
-               xmlns="http://www.w3.org/2000/svg" p-id="7314" width="200" height="200">
-            <path
-                d="M861.866667 164.266667c-87.466667-87.466667-230.4-89.6-320-2.133334l-68.266667 68.266667c-12.8 12.8-12.8 32 0 44.8s32 12.8 44.8 0l68.266667-68.266667c64-61.866667 166.4-61.866667 230.4 2.133334 64 64 64 168.533333 2.133333 232.533333l-117.333333 119.466667c-34.133333 34.133333-81.066667 51.2-128 49.066666-46.933333-4.266667-91.733333-27.733333-119.466667-66.133333-10.666667-14.933333-29.866667-17.066667-44.8-6.4-14.933333 10.666667-17.066667 29.866667-6.4 44.8 40.533333 53.333333 100.266667 87.466667 166.4 91.733333h17.066667c59.733333 0 119.466667-23.466667 162.133333-68.266666l117.333333-119.466667c83.2-89.6 83.2-234.666667-4.266666-322.133333z"
-                p-id="7315"></path>
-            <path
-                d="M505.6 750.933333l-66.133333 68.266667c-64 61.866667-166.4 61.866667-230.4-2.133333-64-64-64-168.533333-2.133334-232.533334l117.333334-119.466666c34.133333-34.133333 81.066667-51.2 128-49.066667 46.933333 4.266667 91.733333 27.733333 119.466666 66.133333 10.666667 14.933333 29.866667 17.066667 44.8 6.4 14.933333-10.666667 17.066667-29.866667 6.4-44.8-40.533333-53.333333-100.266667-87.466667-166.4-91.733333-66.133333-4.266667-130.133333 19.2-177.066666 66.133333l-117.333334 119.466667c-85.333333 89.6-85.333333 234.666667 2.133334 322.133333 44.8 44.8 102.4 66.133333 162.133333 66.133334 57.6 0 115.2-21.333333 160-64l66.133333-68.266667c12.8-12.8 12.8-32 0-44.8-14.933333-10.666667-34.133333-10.666667-46.933333 2.133333z"
-                p-id="7316"></path>
-          </svg>
-          <span>Share</span>
-          <span class="close iconfont" @click="handleCloseClick">
-                    <svg t="1683095023116" class="icon" viewBox="0 0 1024 1024" version="1.1"
-                         xmlns="http://www.w3.org/2000/svg" p-id="7455" width="200" height="200"><path
-                        d="M571.733333 512l268.8-268.8c17.066667-17.066667 17.066667-42.666667 0-59.733333-17.066667-17.066667-42.666667-17.066667-59.733333 0L512 452.266667 243.2 183.466667c-17.066667-17.066667-42.666667-17.066667-59.733333 0-17.066667 17.066667-17.066667 42.666667 0 59.733333L452.266667 512 183.466667 780.8c-17.066667 17.066667-17.066667 42.666667 0 59.733333 8.533333 8.533333 19.2 12.8 29.866666 12.8s21.333333-4.266667 29.866667-12.8L512 571.733333l268.8 268.8c8.533333 8.533333 19.2 12.8 29.866667 12.8s21.333333-4.266667 29.866666-12.8c17.066667-17.066667 17.066667-42.666667 0-59.733333L571.733333 512z"
-                        p-id="7456"></path></svg>
-          </span>
+      <popup @status="handleCloseClick" v-bind:class="{ 'is-visible': showShare }">
+        <div class="horizontal-line">
+          <span class="line"></span>
         </div>
         <div style="margin-top: 20px">
           <span @click="copyUrl">{{ url }}</span>
@@ -133,7 +118,6 @@ export default {
   },
   data() {
     return {
-      showBlock: false,
       showShare: false,
       index: 0,
       active: -1,
@@ -174,14 +158,7 @@ export default {
     },
     handleFollowClick: function () {
       if (this.handleIsLogin()) {
-        this.$message.success('follow ok')
-      } else {
-        this.$message.warning('请先登入!')
-      }
-    },
-    handleLikeClick: function () {
-      if (this.handleIsLogin()) {
-        axiosInstance.post(`/api/v1/video/${this.$route.params.id}/like`, {params: {uid: this.userId}}).then(res => {
+        axiosInstance.post(`/api/v1/users/${this.videoInfo.user_id}/follow`).then(res => {
           if (res.data.code !== 0) {
             this.$message.error(res.data.message);
             return;
@@ -191,7 +168,25 @@ export default {
         }).catch(err => {
           // 错误提示
           console.log(err);
-          this.$message.error("like sytem false");
+          this.$message.error("follow sytem false");
+        });
+      } else {
+        this.$message.warning('请先登入!')
+      }
+    },
+    handleLikeClick: function () {
+      if (this.handleIsLogin()) {
+        axiosInstance.post(`/api/v1/video/${this.$route.params.id}/like`, {params: {uid: this.userId}}).then(res => {
+          if (res.data.code !== 0) {
+            this.$message.error(res.data.data);
+            return;
+          }
+          this.$message.success(res.data.data)
+          // this.isSelf = false;
+        }).catch(err => {
+          // 错误提示
+          console.log(err);
+          this.$message.error("like system false");
         });
       } else {
         this.$message.warning('请先登入!')
@@ -222,16 +217,10 @@ export default {
         this.$message.warning('请先登入!')
       }
     },
-    handleBlockClick: function () {
-      this.showBlock = false
-      this.showShare = false
-    },
     handleShareClick: function () {
-      this.showBlock = true
       this.showShare = true
     },
-    handleCloseClick: function () {
-      this.showBlock = false
+    handleCloseClick() {
       this.showShare = false
     },
     getChannelLikeSucc(res) {
@@ -267,6 +256,20 @@ export default {
 </script>
 
 <style scoped>
+
+.horizontal-line {
+  display: flex;
+  align-items: center;
+}
+
+.line {
+  width: 100%;
+  height: 1vw !important;
+  border-radius: 1vw;
+  margin: 0 38vw;
+  background-color: #ccc;
+}
+
 .block-info {
   padding: 3vw 3.3vw 0 3.3vw;
 }

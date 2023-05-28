@@ -1,10 +1,12 @@
 <template>
-  <div id="video-player" className="video-player"></div>
+  <div id="video-player"></div>
 </template>
 <script>
 import Player from 'xgplayer';
 import Mp4Plugin from "xgplayer-mp4"
 import 'xgplayer/dist/index.min.css';
+import {Events} from 'xgplayer'
+
 
 export default {
   name: "XgPlayer",
@@ -26,9 +28,17 @@ export default {
     };
   },
   mounted() {
-    console.log('传过来的url:', this.url);
     // 初始化播放器
     this.initPlayer();
+    // this.player.on(Events.ERROR, (error) => {
+    //   alert(JSON.stringify(error))
+    //   // 延迟1秒钟后尝试重新加载视频
+    //   setTimeout(() => {
+    //     alert('Reloading video...');
+    //     this.player.reload();
+    //     this.player.retry();
+    //   }, 1000);
+    // })
   },
   created() {
   },
@@ -52,11 +62,12 @@ export default {
         id: 'video-player',
         url: this.url,
         poster: this.cover,
-        fluid: true,
+        fluid: true, // 是否启用流式布局
+        lang: "en",
 
         /**倍速播放 */
         playbackRate: [0.5, 0.75, 1, 1.5, 2],
-        defaultPlaybackRate: 1,
+        defaultPlaybackRate: 1, // 默认起播倍速
 
         playsinline: this.isAppleDevice(), // IOS设备设置，防止被浏览器劫持
         'x5-video-player-type': 'h5', // 微信内置浏览器设置，防止被浏览器劫持
@@ -77,10 +88,13 @@ export default {
         mp4plugin: {
           maxBufferLength: 50,
           minBufferLength: 10,
+          retryCount: 3,
+          retryDelay: 1000, // 每次重试间隔 1 秒，默认值
+          timeout: 10000, // 请求超时时间为 10 秒，默认值
         },
         // ios全屏被接管，开启这个则网页全屏
         fullscreen: {
-          useCssFullscreen: false // 全屏按钮将会调用页面内全屏
+          useCssFullscreen: true // 全屏按钮将会调用页面内全屏
         },
       };
       //========================== 2，开始实例化======================

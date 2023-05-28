@@ -2,20 +2,18 @@
   <div>
     <register-header></register-header>
     <div class="container">
-      <div>
-        <div class="login-wrapper">
-          <div class="login-header">Register</div>
-          <div class="form-wrapper">
-            <input v-model="user.username" type="text" name="username" placeholder="username or email address"
-                   class="input-item">
-            <div class="password-input-wrapper">
-              <input v-model="user.password" :type="showPassword ? 'text' : 'password'" name="password"
-                     placeholder="no less than 6 characters" class="input-item">
-              <i @click="showPassword = !showPassword" class="fa"
-                 :class="showPassword ? 'fa-eye-slash' : 'fa-eye'">show</i>
-            </div>
-            <div @click="register" class="btn">Submit</div>
+      <div class="login-wrapper">
+        <div class="login-header">Register</div>
+        <div class="form-wrapper">
+          <input v-model="user.username" type="text" name="username" placeholder="username or email address"
+                 class="input-item">
+          <div class="password-input-wrapper">
+            <input v-model="user.password" :type="showPassword ? 'text' : 'password'" name="password"
+                   placeholder="no less than 6 characters" class="input-item">
+            <b @click="showPassword = !showPassword" class="fa"
+               :class="showPassword ? 'fa-eye-slash' : 'fa-eye'">SHOW</b>
           </div>
+          <div @click="register" class="btn">Submit</div>
         </div>
       </div>
     </div>
@@ -59,7 +57,7 @@ export default {
       }).catch(err => {
         // 错误提示
         console.log(err)
-        this.$message.error("出错了")
+        this.$message.error("SYSTEM ERROR")
       })
     }
   },

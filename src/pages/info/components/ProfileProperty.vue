@@ -3,7 +3,7 @@
     <div v-for="(item, index) in profileCoverArr" :key="index" class="profile-property-wrapper">
       <router-link :to="'/video/' + item.id">
         <div class="profile-property">
-          <img referrer="no-referrer|origin|unsafe-url" :src="item.cover_url" @error="handleError(item)">
+          <img :src="item.cover_url" @error="handleError(item)">
           <div class="watch-info">
             <svg class="icon" viewBox="0 0 1024 1024" width="20" height="20">
               <path

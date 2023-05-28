@@ -2,9 +2,9 @@
   <div>
     <home-header></home-header>
     <home-wrap>
-      <home-swiper :banners="swiperList"></home-swiper>
+<!--      <home-swiper :banners="swiperList"></home-swiper>-->
       <home-recommend :shots="recommendList"></home-recommend>
-      <loadingText v-if="loading"/>
+      <loadingText style="background:#fff;" v-if="loading"/>
     </home-wrap>
   </div>
 </template>
