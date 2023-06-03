@@ -2,14 +2,6 @@
   <div v-if="videoInfo">
     <div class="block-info">
       <div class="block-info-title">
-        <div class="iconfont">
-          <svg t="1683095205751" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
-               p-id="8873" width="200" height="200">
-            <path
-                d="M0 256h1024v512H0V256z m194.24 155.52V640h37.44V538.88h115.84V640h37.44V411.52H347.52v95.36H231.68V411.52h-37.44zM531.2 407.04c-35.2 0-62.72 11.2-82.56 34.24-19.2 21.76-28.48 49.92-28.48 84.8 0 34.56 9.28 62.72 28.48 84.48 19.84 22.4 47.36 33.92 82.56 33.92 34.88 0 62.4-11.2 82.56-33.6 19.2-21.44 28.8-49.6 28.8-84.8 0-35.2-9.6-63.68-28.8-85.12-20.16-22.72-47.68-33.92-82.56-33.92z m0 32.96c23.68 0 41.92 7.36 54.72 22.72 12.48 15.36 18.88 36.48 18.88 63.36 0 26.88-6.4 47.68-18.88 62.72-12.8 15.04-31.04 22.72-54.72 22.72s-42.24-8-55.04-23.68c-12.48-15.36-18.56-35.84-18.56-61.76 0-26.24 6.08-46.72 18.56-62.08 13.12-16 31.36-24 55.04-24z m128.96-28.48v32h74.88V640h37.44V443.52h74.88v-32h-187.2z"
-                fill="#333333" p-id="8874"></path>
-          </svg>
-        </div>
         <h2>{{ videoInfo.title }} </h2>
       </div>
       <div class="container">
@@ -29,15 +21,9 @@
             >
               <span>{{ videoInfo.nickname }}</span>
             </router-link>
-            <p>0 fans</p>
           </div>
-          <div class="follow-add iconfont" @click="handleFollowClick">
-            <svg t="1683095141366" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
-                 p-id="7595" width="200" height="200">
-              <path
-                  d="M874.666667 469.333333H554.666667V149.333333c0-23.466667-19.2-42.666667-42.666667-42.666666s-42.666667 19.2-42.666667 42.666666v320H149.333333c-23.466667 0-42.666667 19.2-42.666666 42.666667s19.2 42.666667 42.666666 42.666667h320v320c0 23.466667 19.2 42.666667 42.666667 42.666666s42.666667-19.2 42.666667-42.666666V554.666667h320c23.466667 0 42.666667-19.2 42.666666-42.666667s-19.2-42.666667-42.666666-42.666667z"
-                  p-id="7596"></path>
-            </svg>
+          <div class="face-fans"><p>0 fans</p></div>
+          <div class="follow-add" @click="handleFollowClick">
             <span>Follow</span>
           </div>
         </div>
@@ -48,8 +34,27 @@
         <span class="time">{{ videoInfo.created_at }}</span>
         <span class="avid">{{ videoInfo.id }}</span>
       </div>
-      <div class="desc">
-        <p>{{ videoInfo.description }}</p>
+      <div v-if="videoInfo.description.length > 0" class="desc">
+        <div class="show-more-wrapper">
+          <p v-if="truncated">{{ videoInfo.description.slice(0, 50) }}...</p>
+          <p v-else>{{ videoInfo.description }}</p>
+          <a v-if="truncated" @click="truncated = false" class="show-more iconfont">
+            <svg t="1685759381890" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                 p-id="6473" width="200" height="200">
+              <path
+                  d="M904.533333 311.466667c-17.066667-17.066667-42.666667-17.066667-59.733333 0L512 644.266667 179.2 311.466667c-17.066667-17.066667-42.666667-17.066667-59.733333 0-17.066667 17.066667-17.066667 42.666667 0 59.733333l362.666666 362.666667c8.533333 8.533333 19.2 12.8 29.866667 12.8s21.333333-4.266667 29.866667-12.8l362.666666-362.666667c17.066667-17.066667 17.066667-42.666667 0-59.733333z"
+                  p-id="6474"></path>
+            </svg>
+          </a>
+          <a v-else @click="truncated = true" class="show-more iconfont">
+            <svg t="1685265192321" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                 p-id="6610" width="200" height="200">
+              <path
+                  d="M904.533333 674.133333l-362.666666-362.666666c-17.066667-17.066667-42.666667-17.066667-59.733334 0l-362.666666 362.666666c-17.066667 17.066667-17.066667 42.666667 0 59.733334 17.066667 17.066667 42.666667 17.066667 59.733333 0L512 401.066667l332.8 332.8c8.533333 8.533333 19.2 12.8 29.866667 12.8s21.333333-4.266667 29.866666-12.8c17.066667-17.066667 17.066667-42.666667 0-59.733334z"
+                  p-id="6611"></path>
+            </svg>
+          </a>
+        </div>
       </div>
     </div>
     <div class="toolbar">
@@ -93,10 +98,7 @@
           </span>
       </div>
       <popup @status="handleCloseClick" v-bind:class="{ 'is-visible': showShare }">
-        <div class="horizontal-line">
-          <span class="line"></span>
-        </div>
-        <div style="margin-top: 20px">
+        <div>
           <span @click="copyUrl">{{ url }}</span>
         </div>
       </popup>
@@ -122,7 +124,8 @@ export default {
       index: 0,
       active: -1,
       isLogin: false,
-      url: null
+      url: null,
+      truncated: true
     }
   },
   mounted() {
@@ -257,17 +260,15 @@ export default {
 
 <style scoped>
 
-.horizontal-line {
+.show-more-wrapper {
   display: flex;
-  align-items: center;
+  justify-content: flex-end;
+  margin-top: auto;
 }
 
-.line {
-  width: 100%;
-  height: 1vw !important;
-  border-radius: 1vw;
-  margin: 0 38vw;
-  background-color: #ccc;
+.show-more {
+  margin-left: 10px;
+  align-items: normal !important;
 }
 
 .block-info {
@@ -278,14 +279,6 @@ export default {
   display: flex;
 }
 
-.block-info-title div {
-  height: 5vw;
-  display: flex;
-  padding: 0 1.6vw;
-  border-radius: 2.66667vw;
-  box-shadow: 0 0 1.6vw rgba(255, 255, 255, 0.9);
-}
-
 .block-info-title h2 {
   white-space: normal;
   overflow: hidden;
@@ -294,7 +287,7 @@ export default {
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   font-weight: 500;
-  font-size: 5.3vw;
+  font-size: 5vw;
   line-height: 6.5vw;
 }
 
@@ -309,24 +302,26 @@ export default {
   width: 9.6vw;
   height: 9.6vw;
   border-radius: 4.8vw;
-  border: 0.49999px solid #ccc;
 }
 
 .face-up span {
   font-size: 3.73333vw;
-  color: #212121;
   display: block;
   height: 4.53333vw;
   line-height: 4.53333vw;
 }
 
-.face-up p {
-  margin-top: 1.33333vw;
+.face-fans, .face-up p {
   font-size: 3.2vw;
-  height: 3.2vw;
-  line-height: 3.2vw;
+  height: 4.53333vw;
+  line-height: 4.53333vw;
   color: #999;
 }
+
+.face-fans {
+  margin-left: 3vw;
+}
+
 
 .follow-add {
   margin-left: auto;
@@ -335,24 +330,27 @@ export default {
   width: 17.6vw;
   height: 6.4vw;
   line-height: 6.4vw;
-  border: 1px solid #6cf;
-  color: #6cf;
-  border-radius: 1.06667vw;
+  background: var(--0f-color);
+  color: var(--f1-color);
+  border-radius: 5.06667vw;
   font-size: 3.46667vw;
 }
 
-.follow-add i::before {
-  font-size: 4.26667vw;
-  content: "\e665";
+.desc {
+  display: flex;
+  flex-direction: column;
 }
 
 .data,
 .desc p {
   font-size: 3.2vw;
   line-height: 4vw;
-  margin-top: 2.66667vw;
-  color: #999;
+  margin-top: 2vw;
   white-space: pre-wrap;
+}
+
+.data {
+  color: #999;
 }
 
 .data span {
@@ -379,11 +377,6 @@ export default {
   color: #999;
 }
 
-.toolbar-icon {
-  height: 4.26667vw;
-  margin-bottom: 2vw;
-}
-
 .toolbar {
   border-bottom: 0.26667vw solid rgba(207, 207, 207, 0.3);
 }
@@ -396,17 +389,18 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-top: 2vw;
 }
 
 .iconfont svg {
   cursor: pointer;
   width: 5vw;
   height: 5vw;
-  fill: #515151;
+  fill: var(--icon-color);
 }
 
 .follow-add {
-  padding: 3px .2rem;
+  padding: .1rem .2rem;
 }
 
 .follow-add svg {

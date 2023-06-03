@@ -141,11 +141,6 @@ html:root {
   --animate-repeat: 0.5s !important;
 }
 
-.r-slide-menu-content {
-  background: #f5f6f7;
-  /* background-image: linear-gradient(to right, #a8edea, #fed6e3); */
-}
-
 .r-slide-menu-wrap {
   position: absolute;
   /* background-image: linear-gradient(to right, #fed6e3, #a8edea); */

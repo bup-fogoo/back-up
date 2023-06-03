@@ -1,8 +1,8 @@
 <template>
   <div class="related-recommend">
     <div class="related-recommend-title">
-      <span @click="handleRecommend(0)" :class="{ active: currentIndex === 0 }">Related</span>
-      <span @click="handleComment(1)" :class="{ active: currentIndex === 1 }">Comment</span>
+      <span @click="handleRecommend(0)" :class="{ active: currentIndex === 0 }">Relational</span>
+      <span @click="handleComment(1)" :class="{ active: currentIndex === 1 }">Comments</span>
     </div>
     <div class="related-recommend-transform">
       <div class="related-recommend-list-box" :style="{ transform: `translateX(${(0 - currentIndex) * 100}%)` }">
@@ -17,8 +17,7 @@
                 :key="rr.id"
                 @click.native="refresh"
             >
-              <img style="box-shadow: 0 0 1px #888;"
-                   :src="rr.cover_url"
+              <img :src="rr.cover_url"
                    @load="handleImageLoad" @error="handleImageError"
                    alt=""
               />
@@ -107,6 +106,7 @@
 <script>
 import axios from 'axios'
 import {getTimeAgo} from '@/common/js/time.js'
+import loadingText from "@/common/components/loadingText";
 import axiosInstance from "@/router/api";
 import storageService from "@/pages/home/service/storageService";
 
@@ -114,6 +114,7 @@ import storageService from "@/pages/home/service/storageService";
 export default {
   name: 'RelatedRecommend',
   loadingError: false,
+  components: {loadingText},
   data() {
     return {
       RelateRecommend: [],
@@ -252,7 +253,7 @@ export default {
   border-radius: 2vw;
   background-size: 36%;
   width: 100%;
-  height: 24.881111vw;
+  /*height: 24.881111vw;*/
 }
 
 .list-box {
@@ -263,7 +264,6 @@ export default {
 .list-box p {
   font-size: 3.2vw;
   line-height: 4vw;
-  color: #212121;
   margin: 2.6vw 0;
   overflow: hidden;
   text-overflow: ellipsis;

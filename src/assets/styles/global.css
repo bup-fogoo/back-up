@@ -1,0 +1,40 @@
+/* 定义 CSS 变量 */
+:root {
+    --animate-duration: .2s;
+    --animate-delay: .2s;
+    --animate-repeat: 1;
+    --bg-color: #0f0f0f;
+    --text-color: #f1f1f1;
+    --link-color: #f1f1f1;
+    --menu-bg-color: #fff;
+    --0f-color:#0f0f0f;
+    --f1-color:#f1f1f1;
+    --home-header-bg-color: rgba(255, 255, 255, 0.8);
+    --home-line-color: rgba(0, 0, 0, 0.1);
+}
+
+
+/* 使用 CSS 变量 */
+.light {
+    background-color: #fff;
+    color: #0f0f0f;
+    --icon-color: #515151;
+    --f1-color:#f1f1f1;
+}
+
+.dark {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    --menu-bg-color: #0f0f0f;
+    --home-header-bg-color: rgba(44, 44, 44, 0.8);
+    --icon-color: var(--text-color);
+    --0f-color:#f1f1f1;
+    --f1-color:#0f0f0f;
+    --home-line-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark a:link,
+.dark a:visited {
+    color: var(--link-color);
+}
+

@@ -25,7 +25,7 @@ export default {
     channelVideoPlayer,
     VideoInfo,
     RelatedRecommend,
-    loading
+    loading,
   },
   data() {
     return {

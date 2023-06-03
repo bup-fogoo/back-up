@@ -17,6 +17,10 @@ const router = new Router({
             name: 'Channel',
             component: () => import('@/pages/channel/Channel')
         }, {
+            path: '/test',
+            name: 'test',
+            component: () => import('@/common/Test')
+        }, {
             path: '/register',
             name: 'Register',
             component: () => import('@/pages/home/components/user/Register')

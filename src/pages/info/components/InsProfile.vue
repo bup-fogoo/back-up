@@ -162,7 +162,7 @@ export default {
   display: flex;
   align-items: center;
   padding: 20px;
-  background: #fff;
+  background: var(--menu-bg-color);
   border-radius: 10px 10px 0 0;
   margin-top: -15px;
   z-index: 99;

@@ -65,10 +65,10 @@ export default {
 .icon {
   width: 32px;
   height: 32px;
-  color: black;
 }
 
 .icon svg {
+  fill: var(--0f-color);
   transform-origin: center;
 }
 

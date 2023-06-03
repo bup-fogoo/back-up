@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="home-header-fixed">
+    <div class="home-header-fixed" :class="{ 'header-hidden': isHeaderHidden }">
       <div class="home-header">
         <div class="home-header-left" @click="handleMenuClick">
           <svg t="1683092827343" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -31,7 +31,7 @@
                 enter-active-class="animate__animated animate__fadeInLeft"
                 leave-active-class="animate__animated animate__fadeOutLeft">
       <div class="menu" v-show="showMenu">
-        <div style="height:1.1rem"></div>
+        <div style="height:1rem"></div>
         <header-left></header-left>
       </div>
     </transition>
@@ -40,7 +40,7 @@
                 enter-active-class="animate__animated animate__fadeInRight"
                 leave-active-class="animate__animated animate__fadeOutRight">
       <div class="menu" v-show="showSearch">
-        <div style="height:1.1rem"></div>
+        <div style="height:1rem"></div>
         <div class="menu-system" style="float: right">
           <header-right></header-right>
         </div>
@@ -52,7 +52,7 @@
                 leave-active-class="animate__animated animate__fadeOut">
       <div class="mask" v-show="showMenu || showSearch" @click="hideMenus"></div>
     </transition>
-    <div style="height:1.1rem"></div>
+    <div style="height:1rem"></div>
   </div>
 </template>
 
@@ -65,14 +65,55 @@ export default {
   data() {
     return {
       showMenu: false,
-      showSearch: false
+      showSearch: false,
+      isHeaderHidden: false, // 初始状态为隐藏
+      lastScrollPosition: 0, // 上一次滚动位置
+      scrollThreshold: 100, // 滚动阈值，控制滚动多少距离后显示头部
     }
   },
   components: {
     HeaderLeft,
     HeaderRight
   },
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.handleScroll);
+  },
+  created() {
+    // 从本地缓存中获取上次保存的状态
+    const storedDarkMode = localStorage.getItem('isDarkMode');
+    this.isDarkMode = storedDarkMode === 'true';
+
+    // 根据存储的状态设置样式
+    if (this.isDarkMode) {
+      document.body.classList.add('dark');
+      const elements = document.querySelectorAll('.light');
+      elements.forEach((el) => {
+        el.classList.remove('light');
+        el.classList.add('dark');
+      });
+    }
+  },
   methods: {
+    handleScroll() {
+      const currentScrollPosition = document.documentElement.scrollTop;
+      const scrollDistance = currentScrollPosition - this.lastScrollPosition;
+
+      if (currentScrollPosition <= 100) {
+        // Reached the top of the page
+        this.isHeaderHidden = false;
+      } else if (scrollDistance > 0) {
+        // Scrolling down
+        this.isHeaderHidden = true;
+      } else if (scrollDistance < 0) {
+        // Scrolling up
+        this.isHeaderHidden = false;
+      }
+
+      this.lastScrollPosition = currentScrollPosition;
+    },
     handleMenuClick() {
       if (!this.showSearch) { // 如果搜索框未显示，则切换菜单的显示状态
         this.showMenu = !this.showMenu;
@@ -113,32 +154,25 @@ export default {
 </script>
 
 <style scoped>
-/* 可以设置不同的进入和离开动画   */
-/* 设置持续时间和动画函数        */
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.1s ease;
-}
 
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
+.header-hidden {
+  transform: translateY(-100%); /* 上滑隐藏 */
 }
 
 .home-header-fixed {
   position: fixed;
   width: 100%;
   z-index: 99;
+  transition: transform 0.3s ease-out; /* 添加过渡效果 */
 }
 
 .home-header {
   display: flex;
-  line-height: 1.1rem;
-  height: 1.1rem;
+  line-height: 1rem;
+  height: 1rem;
   backdrop-filter: saturate(5) blur(20px);
-  background: rgba(255, 255, 255, 0.8);
-  color: #4e5358; /* home-header colos */
-  box-shadow: 0 0 4px 10px rgba(138, 138, 138, 0.08);
+  background: var(--home-header-bg-color);
+  /*box-shadow: 0 0 4px 10px rgba(138, 138, 138, 0.08);*/
 }
 
 .home-header-left {
@@ -151,6 +185,7 @@ export default {
 .home-header-right svg {
   width: 0.6rem;
   height: 0.6rem;
+  fill: var(--icon-color);
 }
 
 .home-header-left,
@@ -174,7 +209,7 @@ export default {
 }
 
 .home-header-logo h1 {
-  font-size: 0.6rem;
+  font-size: 0.5rem;
 }
 
 .home-header-right {
