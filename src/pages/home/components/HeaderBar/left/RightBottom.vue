@@ -35,7 +35,6 @@ export default {
 
 .wrapper .icon {
   position: relative;
-  background: #ffffff;
   border-radius: 50%;
   padding: 15px;
   margin: 10px;
@@ -55,7 +54,6 @@ export default {
   position: absolute;
   top: 0;
   font-size: 14px;
-  background: #ffffff;
   color: #225ffd;
   padding: 5px 8px;
   border-radius: 5px;
@@ -70,7 +68,6 @@ export default {
   content: "";
   height: 8px;
   width: 8px;
-  background: #ffffff;
   bottom: -3px;
   left: 50%;
   transform: translate(-50%) rotate(45deg);
@@ -93,13 +90,11 @@ export default {
 .wrapper .facebook:hover .tooltip,
 .wrapper .facebook:hover .tooltip::before {
   background: #1877f2;
-  color: #ffffff;
 }
 
 .wrapper .register:hover,
 .wrapper .twitter:hover .tooltip,
 .wrapper .twitter:hover .tooltip::before {
   background: #fa9546;
-  color: #ffffff;
 }
 </style>

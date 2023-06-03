@@ -44,13 +44,4 @@ export default {
 </script>
 
 <style scoped>
-.header-right-bg {
-  height: 100%;
-  /*background-image: linear-gradient(*/
-  /*  to right,*/
-  /*  rgba(255, 241, 235, 0.2),*/
-  /*  rgba(172, 224, 249, 0.2)*/
-  /*);*/
-}
-
 </style>

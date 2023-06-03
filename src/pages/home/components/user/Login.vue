@@ -1,21 +1,18 @@
 <template>
   <div>
     <login-header></login-header>
-    <div class="">
-      <div class="login-wrapper">
-        <div class="login-header">Login</div>
-        <div class="form-wrapper">
-          <input v-model="user.username" type="text" name="username" placeholder="username" class="input-item">
-          <input v-model="user.password" type="password" name="password" placeholder="password" class="input-item">
-          <div @click="login" id="login" class="btn">Login</div>
-        </div>
-        <div class="msg">
-          Don't have account? <a href="/register">Sing up</a>
-        </div>
+    <div class="login-wrapper">
+      <div class="login-header">Login</div>
+      <div class="form-wrapper">
+        <input v-model="user.username" type="text" name="username" placeholder="username" class="input-item">
+        <input v-model="user.password" type="password" name="password" placeholder="password" class="input-item">
+        <div @click="login" id="login" class="btn">Login</div>
+      </div>
+      <div class="msg">
+        Don't have account? <a href="/register">Sing up</a>
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -55,7 +52,7 @@ export default {
       ).catch(err => {
         // 错误提示
         console.log(err)
-        this.$message.error("出错了")
+        this.$message.error("SYSTEM EEROR")
       })
     }
   },
@@ -128,7 +125,7 @@ export default {
 
 .login-wrapper .msg a {
   text-decoration-line: none;
-  color: #a6c1ee;
+  color: #2453ce;
 }
 
 </style>

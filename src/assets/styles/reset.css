@@ -1,7 +1,6 @@
 @charset "utf-8";
 html {
-    /*background-color: #f5f6f7;*/
-    color: #000;
+    color: #0f0f0f;
     font-size: 12px;
 }
 
@@ -201,7 +200,7 @@ html {
 
 body {
     font-family: "YouTube Sans", "Roboto", sans-serif;
-    color: #333;
+    color: #0f0f0f;
     font-size: 16px;
     line-height: 1;
     -webkit-text-size-adjust: none;

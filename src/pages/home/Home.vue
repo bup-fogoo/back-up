@@ -1,20 +1,18 @@
 <template>
   <div>
     <home-header></home-header>
-    <home-wrap>
-      <home-swiper :banners="swiperList"></home-swiper>
-      <home-recommend :shots="recommendList"></home-recommend>
-      <loadingText v-if="loading"/>
-    </home-wrap>
+    <HomeBar/>
+    <home-recommend :shots="recommendList"></home-recommend>
+    <loadingText v-if="loading"/>
   </div>
 </template>
 
 <script>
 import HomeHeader from './components/Header'
-import HomeWrap from './components/Wrap'
 import HomeSwiper from './components/Swiper'
 import HomeRecommend from './components/Recommend'
 import loadingText from "@/common/components/loadingText";
+import HomeBar from "@/pages/home/components/HomeBar";
 import axios from 'axios'
 
 export default {
@@ -22,12 +20,12 @@ export default {
   components: {
     HomeHeader,
     HomeSwiper,
-    HomeWrap,
+    HomeBar,
     HomeRecommend,
     loadingText
   },
   mounted() {
-    window.addEventListener('scroll', this.handleScroll, { passive: true });
+    window.addEventListener('scroll', this.handleScroll, {passive: true});
   },
   data() {
     return {

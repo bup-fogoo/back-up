@@ -6,6 +6,7 @@ import Message from './common/TMessage/TMessage'
 import './common/TMessage/TMessage.css'
 import '../src/assets/styles/reset.css'
 import '../src/assets/styles/border.css'
+import '../src/assets/styles/global.css'
 
 Vue.config.productionTip = false
 // 挂载到全局,TMessage

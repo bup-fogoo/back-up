@@ -12,7 +12,6 @@
 
 <script>
 import channelHeader from '@/pages/home/components/Header'
-import channelVideoComment from "@/pages/channel/components/VideoComment";
 import channelVideoPlayer from '@/pages/channel/components/VideoPlayer'
 import VideoInfo from "@/pages/channel/components/VideoInfo";
 import RelatedRecommend from "@/pages/channel/components/RelatedRecommend";
@@ -24,10 +23,9 @@ export default {
   components: {
     channelHeader,
     channelVideoPlayer,
-    channelVideoComment,
     VideoInfo,
     RelatedRecommend,
-    loading
+    loading,
   },
   data() {
     return {
@@ -44,7 +42,6 @@ export default {
       res = res.data
       if (res.code === 0) {
         this.videoInfo = res.data
-        console.log(this.videoInfo)
         this.isDataLoaded = true;
       }
     }

@@ -18,8 +18,8 @@ const router = new Router({
             component: () => import('@/pages/channel/Channel')
         }, {
             path: '/test',
-            name: 'popup',
-            component: () => import('@/common/components/popup')
+            name: 'test',
+            component: () => import('@/common/Test')
         }, {
             path: '/register',
             name: 'Register',

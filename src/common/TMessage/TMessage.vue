@@ -8,8 +8,7 @@
          :style="{top: offset + 'px'}"
          v-if="!closed"
     >
-      <p class="message-content">提示信息：{{ message }}</p>
-<!--      <i class="icon icon-close"></i>-->
+      <p class="message-content">Tips:{{ message }}</p>
     </div>
   </transition>
 </template>
@@ -20,7 +19,7 @@ export default {
 
   data () {
     return {
-      message: '这是默认信息',
+      message: 'default',
       type: 'success',
       center: true,
       offset: 60,
