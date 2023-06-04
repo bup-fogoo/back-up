@@ -49,7 +49,8 @@
     <!-- 遮罩层 -->
     <transition name="custom-classes-transition"
                 enter-active-class="animate__animated animate__fadeIn"
-                leave-active-class="animate__animated animate__fadeOut">
+                leave-active-class="animate__animated animate__fadeOut"
+    >
       <div class="mask" v-show="showMenu || showSearch" @click="hideMenus"></div>
     </transition>
     <div style="height:1rem"></div>
@@ -155,6 +156,17 @@ export default {
 
 <style scoped>
 
+.mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* 遮罩层的颜色和透明度 */
+  z-index: 87; /* 确保遮罩层在其他元素上方 */
+}
+
+
 .header-hidden {
   transform: translateY(-100%); /* 上滑隐藏 */
 }
@@ -226,6 +238,8 @@ export default {
   left: 0;
   right: 0;
   z-index: 88;
+  pointer-events: none;
+
 }
 
 </style>

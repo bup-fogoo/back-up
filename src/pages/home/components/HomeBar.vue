@@ -157,13 +157,13 @@ export default {
 [chip-style="STYLE_DEFAULT"] .chip-container,
 [chip-style="STYLE_HOME_FILTER"] .chip-container,
 [chip-style="STYLE_REFRESH_TO_NOVEL_CHIP"] .chip-container {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: var(--home-line-color);
   -webkit-transition: background-color 0.5s cubic-bezier(0.05, 0, 0, 1);
   transition: background-color 0.5s cubic-bezier(0.05, 0, 0, 1);
 }
 
 [chip-style="STYLE_EXPLORE_LAUNCHER_CHIP"] .chip-container {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: var(--home-line-color);
   border-radius: 2px;
   border: 0;
   padding: 0 12px 0 6px;

@@ -4,7 +4,7 @@
       <SwitchMode></SwitchMode>
       <!--   公告    -->
       <div style="padding: 3vw;margin:3vw;background:#73BBC9;border-radius: 1vw">
-        <h1 style="font-size: 15px;margin-bottom: 3px">道友！来前段开发吗(Vue2)</h1>
+        <h1 style="font-size: 15px;margin-bottom: 3px">道友！前段开发没你不行(Vue2)</h1>
         <h6 style="font-size: 13px;margin-bottom: 3px">Looking for front-end development</h6>
       </div>
       <div v-if="hasUserInfoAndToken">
@@ -104,6 +104,8 @@ export default {
   width: 70%;
   height: 100%;
   background: var(--menu-bg-color);
+  pointer-events:all;
+
 }
 
 .menu-system-list p {

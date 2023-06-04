@@ -99,7 +99,8 @@
       </div>
       <popup @status="handleCloseClick" v-bind:class="{ 'is-visible': showShare }">
         <div>
-          <span @click="copyUrl">{{ url }}</span>
+          <span>点击链接复制本页地址：</span>
+          <span style="text-decoration: underline;" @click="copyUrl">{{ url }}</span>
         </div>
       </popup>
     </div>
