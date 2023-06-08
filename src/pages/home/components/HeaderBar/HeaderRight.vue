@@ -19,7 +19,7 @@ export default {
     HotTags,
     HotSearch
   },
-  data () {
+  data() {
     return {
       title: 'Hot Tags',
       tags: [
@@ -31,12 +31,11 @@ export default {
       ],
       hotSearchTitle: 'Hot Search',
       hotSearchList: [
-        {id: 1, name: '132', link: '/video/search/1', count: 123},
-        {id: 2, name: '789', link: '/video/search/2', count: 100},
-        {id: 3, name: '789', link: '/video/search/3', count: 99},
-        {id: 4, name: '789', link: '/video/search/4', count: 88},
-        {id: 5, name: '789', link: '/video/search/5', count: 77},
-        {id: 6, name: '789', link: '/video/search/6', count: 66}
+        {id: 1, name: '阿根正传', link: '/video/1', count: 123},
+        {id: 2, name: '灌篮高手', link: '/video/2', count: 100},
+        {id: 3, name: '千与千寻', link: '/video/3', count: 99},
+        {id: 4, name: '咒术回战0 剧场版', link: '/video/16', count: 88},
+        {id: 5, name: '寄生虫', link: '/video/123', count: 77},
       ]
     }
   }

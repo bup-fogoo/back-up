@@ -5,6 +5,7 @@
 import Player from 'xgplayer';
 import Mp4Plugin from "xgplayer-mp4"
 import 'xgplayer/dist/index.min.css';
+import HlsPlugin from 'xgplayer-hls';
 import {Events} from 'xgplayer'
 
 
@@ -65,6 +66,11 @@ export default {
         fluid: true, // 是否启用流式布局
         lang: "en",
 
+        controls: {
+          autoHide: true,
+          mode: "normal",
+        },
+
         /**倍速播放 */
         playbackRate: [0.5, 0.75, 1, 1.5, 2],
         defaultPlaybackRate: 1, // 默认起播倍速
@@ -84,7 +90,7 @@ export default {
         /**初始化首帧 */
         videoInit: true,
         autoplay: false,
-        plugins: [Mp4Plugin],
+        plugins: [Mp4Plugin, HlsPlugin],
         mp4plugin: {
           maxBufferLength: 50,
           minBufferLength: 10,
@@ -92,9 +98,20 @@ export default {
           retryDelay: 1000, // 每次重试间隔 1 秒，默认值
           timeout: 10000, // 请求超时时间为 10 秒，默认值
         },
+        hls: {
+          maxBufferLength: 50,
+          minBufferLength: 10,
+          retryCount: 3, // 重试 3 次，默认值
+          retryDelay: 1000, // 每次重试间隔 1 秒，默认值
+          loadTimeout: 10000, // 请求超时时间为 10 秒，默认值
+          fetchOptions: {
+            // 该参数会透传给 fetch，默认值为 undefined
+            mode: 'cors'
+          }
+        },
         // ios全屏被接管，开启这个则网页全屏
         fullscreen: {
-          useCssFullscreen: true // 全屏按钮将会调用页面内全屏
+          useCssFullscreen: false, // 全屏按钮将会调用页面内全屏
         },
       };
       //========================== 2，开始实例化======================

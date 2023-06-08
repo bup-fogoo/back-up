@@ -18,8 +18,8 @@
   },
   "dependencies": {
     "follow-redirects": "^1.15.2",
-    "jwt-decode": "^3.1.2",
     "xgplayer": "^3.0.1",
+    "xgplayer-hls": "^3.0.4",
     "xgplayer-mp4": "^3.0.1"
   }
 }

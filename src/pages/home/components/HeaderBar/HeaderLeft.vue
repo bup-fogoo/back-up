@@ -6,6 +6,8 @@
       <div style="padding: 3vw;margin:3vw;background:#73BBC9;border-radius: 1vw">
         <h1 style="font-size: 15px;margin-bottom: 3px">道友！前段开发没你不行(Vue2)</h1>
         <h6 style="font-size: 13px;margin-bottom: 3px">Looking for front-end development</h6>
+        <hr>
+        <h3 style="font-size: 13px;margin-bottom: 3px">电影名：阿根正传 最新更新时间2023.06.06</h3>
       </div>
       <div v-if="hasUserInfoAndToken">
         <div class="profile menu-link" @click="$router.push({ name: 'Profile' });">
@@ -104,7 +106,7 @@ export default {
   width: 70%;
   height: 100%;
   background: var(--menu-bg-color);
-  pointer-events:all;
+  pointer-events: all;
 
 }
 
