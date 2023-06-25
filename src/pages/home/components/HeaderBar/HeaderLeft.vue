@@ -37,6 +37,9 @@
       <div class="right-bottom" v-else>
         <RightBottom></RightBottom>
       </div>
+      <div style="display: flex; justify-content: center;padding:10px;">
+        <a href="https://t.me/+XxrdHjBU9qRhMWNl">Telegram</a>
+      </div>
     </div>
   </div>
 </template>

@@ -2,7 +2,7 @@
   <div>
     <channelHeader/>
     <div v-if="isDataLoaded">
-      <channelVideoPlayer :videoInfo="videoInfo"/>
+      <channelVideoPlayer :videoInfo="videoInfo" :video-danmuku="videoDanmuku"/>
       <VideoInfo :videoInfo="videoInfo"/>
       <RelatedRecommend/>
     </div>
@@ -31,7 +31,8 @@ export default {
     return {
       isDataLoaded: false,
       contentList: [],
-      videoInfo: Object
+      videoInfo: Object,
+      videoDanmuku: []
     }
   },
   methods: {
@@ -44,10 +45,23 @@ export default {
         this.videoInfo = res.data
         this.isDataLoaded = true;
       }
+    },
+    getChannelDanmuku() {
+      const routePath = this.$route.path; // 获取路由路径，例如 'http://127.0.0.1:18888/video/1'
+      const dynamicParamValue = routePath.split('/').pop(); // 提取最后一个参数值，即 '1'
+
+      activeInstance.get(`/api/v1/video/danmu/${dynamicParamValue}`).then(this.getChannelDanmukuSucc)
+    },
+    getChannelDanmukuSucc(res) {
+      res = res.data
+      if (res.code === 0) {
+        this.videoDanmuku = res.data
+      }
     }
   },
   mounted() {
     this.getChannelInfo()
+    this.getChannelDanmuku()
   }
 }
 </script>

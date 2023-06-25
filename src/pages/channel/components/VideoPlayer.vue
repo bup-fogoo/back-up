@@ -6,6 +6,7 @@
             v-if="videoInfo"
             :url="videoInfo.url.toString()"
             :cover="videoInfo.cover_url.toString()"
+            :danmukus="videoDanmuku"
         />
       </div>
     </div>
@@ -21,7 +22,8 @@ export default {
     XgPlayer
   },
   props: {
-    videoInfo: Object
+    videoInfo: Object,
+    videoDanmuku: Array
   }
 }
 </script>
