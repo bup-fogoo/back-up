@@ -16,7 +16,7 @@
       <div class="horizontal-line">
         <span class="line"></span>
       </div>
-      <div style="margin:6vw 0">
+      <div style="margin:15px 0">
         <slot></slot>
       </div>
     </div>

@@ -27,7 +27,7 @@
           </div>
         </div>
         <span class="typography-title-1 chip-text"
-        ><span class="yt-core-attributed-string" role="text">探索</span></span
+        ><span class="yt-core-attributed-string" role="text">Explore</span></span
         >
       </div>
     </div>
@@ -57,15 +57,24 @@ export default {
   data() {
     return {
       options: [
-        {text: '全部', selected: true},
-        {text: '音乐', selected: false},
-        {text: '健身', selected: false},
-        {text: '动漫', selected: false},
-        {text: '电影', selected: false},
-        {text: '已看', selected: false},
-        {text: '篮球', selected: false},
-        {text: '电视剧', selected: false},
-        {text: '搞笑', selected: false},
+        // {text: '全部', selected: true},
+        // {text: '音乐', selected: false},
+        // {text: '健身', selected: false},
+        // {text: '动漫', selected: false},
+        // {text: '电影', selected: false},
+        // {text: '已看', selected: false},
+        // {text: '篮球', selected: false},
+        // {text: '电视剧', selected: false},
+        // {text: '搞笑', selected: false},
+        {text: 'All', selected: true},
+        {text: 'Music', selected: false},
+        {text: 'Fitness', selected: false},
+        {text: 'Anime', selected: false},
+        {text: 'Movies', selected: false},
+        {text: 'Watched', selected: false},
+        {text: 'Basketball', selected: false},
+        {text: 'TV Shows', selected: false},
+        {text: 'Comedy', selected: false}
       ]
     }
   },

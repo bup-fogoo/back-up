@@ -10,7 +10,7 @@
   "author": "bup",
   "license": "ISC",
   "devDependencies": {
-    "@vue/cli-service": "^5.0.8",
+    "@vue/cli-service": "^4.5.19",
     "axios": "^0.21.1",
     "fastclick": "^1.0.6",
     "vue": "^2.7.14",
@@ -19,6 +19,8 @@
   "dependencies": {
     "follow-redirects": "^1.15.2",
     "jwt-decode": "^3.1.2",
+    "or": "^0.2.0",
+    "vuex": "^2.5.0",
     "xgplayer": "^3.0.1",
     "xgplayer-hls": "^3.0.4",
     "xgplayer-mp4": "^3.0.1"

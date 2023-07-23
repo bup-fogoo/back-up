@@ -1,57 +1,42 @@
 <template>
-  <div class="episode-selector">
-    <div class="episode-container">
-      <div v-for="(episode, index) in episodes" :key="index" class="episode-box"
-           :class="{ active: activeIndex === index }" @click="activeIndex = index">
-        {{ episode }}
-      </div>
-    </div>
-    <p>You are watching episode {{ activeIndex + 1 }}</p>
-    <popup v-bind:class="{ 'is-visible': true }"/>
+  <div>
+    <input type="text" placeholder="Send a friendly danmu.">
+    <button @click="addDanmu()">Send</button>
   </div>
 </template>
 
 <script>
-import Popup from "@/common/components/popup";
 export default {
-  components: {Popup},
-  data() {
-    return {
-      activeIndex: 0,
-      episodes: new Array(99).fill(null).map((_, index) => `P${index + 1}`)
-    };
+  name: "test",
+  methods: {
+    addDanmu(message) {
+      console.log(message)
+      if (1) {
+        const danmuData = {
+          //发送弹幕
+          duration: 15000,
+          start: 5000,
+          id: 11,
+          txt: message,
+          style: {
+            color: '#eee',//ff9500
+            fontSize: '20px',
+            border: 'solid 0px #3e3e3e',
+            borderRadius: '20px',
+            padding: '5px 10px',
+            backgroundColor: 'rgba(255, 255, 255, 0.1)',
+          }
+        };
+        console.log(danmuData)
+        // 调用 sendDanmu action
+        this.$store.dispatch('sendDanmu', danmuData);
+        console.log(this.$store); // 检查 Vuex index
+        console.log(this.$store.getters.getDanmukus); // 尝试访问 getDanmukus getter
+      }
+    }
   }
-};
+}
 </script>
-
 <style scoped>
-.episode-selector {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
-.episode-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  max-width: 100%;
-}
-
-.episode-box {
-  width: calc(25% - 20px);
-  height: 10vw;
-  background-color: #393939;
-  color: white;
-  text-align: center;
-  line-height: 10vw;
-  font-size: 20px;
-  border-radius: 5px;
-  margin: 10px;
-  cursor: pointer;
-}
-
-.active {
-  background-color: #66cc66;
-}
 </style>

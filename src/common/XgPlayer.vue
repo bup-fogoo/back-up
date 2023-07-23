@@ -8,17 +8,17 @@ import 'xgplayer/dist/index.min.css';
 import HlsPlugin from 'xgplayer-hls';
 import 'xgplayer/es/plugins/danmu/index.css'
 import Vue from 'vue/dist/vue.js';
-
+import {getRandomTime} from "@/common/js/random-time";
 import {Events} from 'xgplayer'
 
 // 创建发送弹幕的组件
 const DanmuSender = Vue.extend({
   template: `
-    <div class="bullet-chat controls-autohide" data-index="3">
-      <div style="margin: 4px;display: flex;">
-        <input type="text" v-model="message" placeholder="Send a friendly danmu.">
-        <button @click="sendDanmu(message)">Send</button>
-      </div>
+    <div class="bullet-chat" data-index="3">
+    <div style="margin: 6px;display: flex;">
+      <input type="text" v-model="message" placeholder="Send a danmu">
+      <button @click="sendDanmu()">Send</button>
+    </div>
     </div>
   `,
   data() {
@@ -27,26 +27,9 @@ const DanmuSender = Vue.extend({
     };
   },
   methods: {
-    sendDanmu(msg) {
-      console.log(msg)
+    sendDanmu() {
       if (this.message.trim() !== '') {
-        const danmuData = {
-          //发送弹幕
-          duration: 15000,
-          start:5000,
-          id: 11,
-          txt: msg,
-          style: {
-            color: '#eee',//ff9500
-            fontSize: '20px',
-            border: 'solid 0px #3e3e3e',
-            borderRadius: '20px',
-            padding: '5px 10px',
-            backgroundColor: 'rgba(255, 255, 255, 0.1)',
-          }
-        };
-        console.log(danmuData)
-        this.$emit('send-danmu', danmuData); // 触发发送弹幕的事件并传递数据
+        this.$emit('send-danmu', this.message); // 触发发送弹幕的事件并传递数据
         this.message = '';
       }
     }
@@ -76,7 +59,7 @@ export default {
   },
   template: `
     <div>
-    <xg-player ref="player" :options="player.config" @send-danmu="handleSendDanmu"></xg-player>
+    <xg-player ref="player" :options="player.config"></xg-player>
     </div>
   `,
   data() {
@@ -84,7 +67,6 @@ export default {
       value: "",
       player: Player, //实例
       isFullscreen: false,
-      danmuID: 100,
       danmuku: [],
     };
   },
@@ -104,20 +86,61 @@ export default {
       this.isFullscreen = !!isFullscreen;
     });
     this.$nextTick(() => {
-      // 在DOM渲染完成后访问$el属性
-      // console.log(this.$el);
+      // console.log(this.$el); // 在DOM渲染完成后访问$el属性
       const controlBar = this.$el.querySelector('.xg-left-grid');
       const danmuSender = new DanmuSender().$mount();
       controlBar.appendChild(danmuSender.$el);
+      danmuSender.$on('send-danmu', (data) => {
+        const currentTimeInSeconds = this.player.currentTime; // 获取当前播放时间，单位为秒
+        const currentTimeInMilliseconds = Math.floor(currentTimeInSeconds * 1000); // 将秒转换为毫秒
+        const danmuData = {
+          //发送弹幕
+          duration: 15000,
+          start: currentTimeInMilliseconds,
+          id: getRandomTime(),
+          txt: data,
+          style: {
+            color: '#eee',//ff9500
+            fontSize: '20px',
+            border: 'solid 0px #3e3e3e',
+            borderRadius: '20px',
+            padding: '5px 10px',
+            backgroundColor: 'rgba(255, 255, 255, 0.1)',
+          }
+        };
+        const routePath = this.$route.path; // 获取路由路径，例如 'http://127.0.0.1:18888/video/1'
+        const dynamicParamValue = routePath.split('/').pop(); // 提取最后一个参数值，即 '1'
+        fetch(`/api/v1/video/danmu/${dynamicParamValue}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(danmuData)
+        })
+            .then(response => {
+              if (response.ok) {
+                this.player.danmu.sendComment(danmuData)
+                // 请求成功处理
+                console.log("弹幕已成功发送");
+              } else {
+                // 请求失败处理
+                console.error("发送弹幕时出现错误");
+              }
+            })
+            .catch(error => {
+              console.error("发送弹幕时出现错误", error);
+            });
+        // this.$store.dispatch('sendDanmu', danmuData);
+        // console.log(this.$store.getters.getDanmukus); // 尝试访问 getDanmukus getter
+      })
     });
-
   },
   created() {
     const defaultValue = {
       duration: 15000,
       id: 'default',
       start: 2000,
-      txt: '请不要相信视频中的广告，不好奇，不访问 Please don\'t believe the advertisement in the video, don\'t visit it.',
+      txt: '请不要相信视频中的广告 Don\'t visit it.',
       mode: 'scroll',
       prior: false,
       color: false,
@@ -135,7 +158,6 @@ export default {
       return
     }
     this.danmuku = [defaultValue, ...this.danmukus];
-    console.log(this.danmuku)
   },
   // 监听播放路径的变化
   watch: {
@@ -263,14 +285,6 @@ export default {
       const ua = navigator.userAgent.toLowerCase();
       return /iphone|ipad|phone|Mac/i.test(ua);
     },
-    handleSendDanmu(danmuData) {
-      // 处理发送弹幕的逻辑
-      // 在这里可以调用 player 对象的方法发送弹幕
-      console.log("=========")
-      console.log(danmuData)
-      console.log("=========")
-      this.player.danmu.sendComment(danmuData);
-    }
   },
 };
 </script>
@@ -284,26 +298,26 @@ export default {
   border: none;
   background-color: #007bff;
   /*#f85959*/
-  border-radius: 0 25px 25px 0;
+  border-radius: 0 6px 6px 0;
   color: #fffc;
-  font-size: 14px;
+  font-size: 12px;
   cursor: pointer;
 }
 
 input[type="text"] {
-  font-size: 14px;
+  font-size: 12px;
   border: none;
-  border-radius: 25px 0 0 25px;
+  border-radius: 6px 0 0 6px;
   background: rgba(242, 242, 242, 0.38);
 }
 
 .bullet-chat button, input[type="text"] {
-  padding: 6px 8px;
+  padding: 4px 8px;
 }
 
 button[type="submit"] {
   border: none;
-  font-size: 14px;
+  font-size: 12px;
   color: #fffc;
   background: #000;
   cursor: pointer;

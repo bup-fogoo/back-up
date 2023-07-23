@@ -31,11 +31,11 @@ export default {
 <style scoped>
 .hot-search {
   border-radius: 4px;
-  padding: 10px;
+  padding: 0 10px;
 }
 
 .hot-search-title {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
   margin-bottom: 10px;
 }
@@ -56,7 +56,7 @@ export default {
 .hot-search-rank {
   margin-right: 10px;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .hot-search-link {

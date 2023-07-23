@@ -3,7 +3,7 @@
     <div class="search-box">
       <!-- 将表单绑定到 submit 事件 -->
       <form @submit.prevent="submitSearch">
-        <input v-model="searchText" type="text" placeholder="Find...">
+        <input v-model="searchText" type="text" placeholder="Please enter the content.">
         <button type="submit">Search</button>
       </form>
     </div>
@@ -11,7 +11,7 @@
       <!-- 显示搜索结果列表 -->
       <ul v-if="searchResult.length" class="search-result">
         <li v-for="(item, index) in searchResult" :key="index">
-          <router-link :to="'/video/' + item.id">{{ item.title }}</router-link>
+          <a :href="'/video/' + item.id">{{ item.title }}</a>
         </li>
       </ul>
 
@@ -76,7 +76,7 @@ export default {
 
 form {
   display: flex;
-  width: 400px;
+  width: 100%;
   height: 44px;
   border-radius: 25px;
   overflow: hidden;
@@ -113,7 +113,7 @@ button[type="submit"]:hover {
 .search-result li a{
   font-size: 12px;
   line-height: 12px;
-  color: #4e4e4e;
+  /*color: #4e4e4e;*/
   text-decoration: underline; /* 添加下划线 */
   /*text-decoration-thickness: 2px; !* 设置下划线的粗细 *!*/
   text-underline-offset: 3px; /* 将下划线下移5像素 */

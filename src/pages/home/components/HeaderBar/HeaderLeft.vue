@@ -4,10 +4,8 @@
       <SwitchMode></SwitchMode>
       <!--   公告    -->
       <div style="padding: 3vw;margin:3vw;background:#73BBC9;border-radius: 1vw">
-        <h1 style="font-size: 15px;margin-bottom: 3px">道友！前段开发没你不行(Vue2)</h1>
-        <h6 style="font-size: 13px;margin-bottom: 3px">Looking for front-end development</h6>
-        <hr>
-        <h3 style="font-size: 13px;margin-bottom: 3px">电影名：阿根正传 最新更新时间2023.06.06</h3>
+        <h1 style="font-size: 15px;margin-bottom: 3px">超过3万部电影火热上线，惊喜不断！零广告干扰，免费畅享高清在线观影盛宴，等你来狂欢！</h1>
+        <h6 style="font-size: 13px;margin-bottom: 3px">Over 30,000 movies await your viewing pleasure, free to watch online with no ads to interrupt the excitement! Join the high-definition cinematic feast now!</h6>
       </div>
       <div v-if="hasUserInfoAndToken">
         <div class="profile menu-link" @click="$router.push({ name: 'Profile' });">
@@ -38,7 +36,7 @@
         <RightBottom></RightBottom>
       </div>
       <div style="display: flex; justify-content: center;padding:10px;">
-        <a href="https://t.me/+XxrdHjBU9qRhMWNl">Telegram</a>
+        <a href="https://t.me/+XxrdHjBU9qRhMWNl">Join Us Telegram</a>
       </div>
     </div>
   </div>

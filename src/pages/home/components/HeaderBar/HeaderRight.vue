@@ -23,11 +23,11 @@ export default {
     return {
       title: 'Hot Tags',
       tags: [
-        {name: 'Vue', link: '/tags/vue'},
-        {name: 'React', link: '/tags/react'},
-        {name: 'JavaScript', link: '/tags/javascript'},
-        {name: 'CSS', link: '/tags/css'},
-        {name: 'HTML', link: '/tags/html'}
+        {name: 'Drama', link: '/tags/drama'},
+        {name: 'Horror', link: '/tags/horror'},
+        {name: 'Suspense', link: '/tags/suspense'},
+        {name: 'Action', link: '/tags/action'},
+        {name: 'Comedy', link: '/tags/comedy'}
       ],
       hotSearchTitle: 'Hot Search',
       hotSearchList: [

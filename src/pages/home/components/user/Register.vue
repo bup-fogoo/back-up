@@ -83,7 +83,7 @@ export default {
 .login-wrapper {
   font-family: 'Open Sans Light';
   letter-spacing: .05em;
-  background-color: #fff;
+  /*background-color: #fff;*/
   width: 250px;
   padding: 0 50px;
   position: absolute;

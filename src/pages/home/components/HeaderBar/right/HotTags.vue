@@ -30,11 +30,11 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 10px;
+  padding: 0 10px;
 }
 
 .title {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
   margin-bottom: 10px;
 }
